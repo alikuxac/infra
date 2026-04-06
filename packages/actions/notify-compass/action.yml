@@ -1,0 +1,22 @@
+name: 'Notify Compass'
+description: 'Send deployment/build events to Atlassian Compass via Ops Gateway'
+author: 'Alikuxac'
+inputs:
+  type:
+    description: 'Event type (deployment, build, incident, alert)'
+    required: true
+  status:
+    description: 'Status of the event (SUCCESSFUL, FAILED, etc.)'
+    required: true
+  gateway-url:
+    description: 'URL of the Ops Gateway'
+    required: true
+  gateway-secret:
+    description: 'X-GATEWAY-SECRET for auth'
+    required: true
+  path:
+    description: 'Sub-path for monorepo mapping'
+    required: false
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

@@ -1,0 +1,22 @@
+name: 'Notify Compass (Internal)'
+description: 'Internal version with enforced owner filtering for alikuxac'
+author: 'Alikuxac'
+inputs:
+  type:
+    description: 'Event type (deployment, build, etc.). Auto-detected if omitted.'
+    required: false
+  status:
+    description: 'Status of the event (SUCCESSFUL, FAILED, etc.)'
+    required: true
+  gateway-url:
+    description: 'URL of the Ops Gateway. Defaults to internal portal if omitted.'
+    required: false
+  gateway-secret:
+    description: 'X-GATEWAY-SECRET for auth'
+    required: true
+  path:
+    description: 'Sub-path for monorepo mapping'
+    required: false
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

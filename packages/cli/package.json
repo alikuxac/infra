@@ -1,0 +1,26 @@
+{
+  "name": "@alikuxac/cli",
+  "version": "0.0.1",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "bin": {
+    "ali": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsup src/cli.ts --format esm --clean",
+    "dev": "tsup src/cli.ts --format esm --watch",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "commander": "^13.0.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "tsup": "^8.3.1",
+    "typescript": "^6.0.2"
+  }
+}

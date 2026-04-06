@@ -1,0 +1,19 @@
+name = "ops-gateway"
+main = "src/index.ts"
+compatibility_date = "2026-01-20"
+
+# KV Namespace Binding
+[[kv_namespaces]]
+binding = "COMPASS_REGISTRY"
+id = "28d272b62eac4250b367befed0826488"
+
+# Environment Variables (set via wrangler secret put or dashboard)
+[vars]
+COMPASS_CLOUD_ID = "9cb99a53-2272-18b0-6982-k9427k7ab36c"
+
+# Secrets (use: wrangler secret put <SECRET_NAME>)
+# ATLASSIAN_SITE_NAME
+# ATLASSIAN_EMAIL 
+# ATLASSIAN_TOKEN
+# GATEWAY_CLIENT_SECRET
+# ADMIN_TOKEN
