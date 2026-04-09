@@ -31,3 +31,6 @@ export const LANGUAGES: Record<string, { indicators: string[], targets: string[]
     targets: ['build', 'bin', 'obj', 'out', '.deps', '.libs']
   }
 };
+
+export const SKILLS_SOURCE_URL = 'https://raw.githubusercontent.com/alikuxac/skills/main';
+export const SKILLS_PATH = '.agent/skills';

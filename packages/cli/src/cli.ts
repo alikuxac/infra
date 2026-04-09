@@ -3,6 +3,7 @@ import { Command } from 'commander';
 import { nukeCommand } from './commands/nuke.js';
 import { initCommand } from './commands/init.js';
 import { helpCommand } from './commands/help.js';
+import { skillCommand } from './commands/skill.js';
 
 const program = new Command();
 
@@ -16,5 +17,6 @@ program
 program.addCommand(nukeCommand);
 program.addCommand(initCommand);
 program.addCommand(helpCommand);
+program.addCommand(skillCommand);
 
 program.parse();
