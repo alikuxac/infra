@@ -1,0 +1,13 @@
+{
+    "name": "@alikuxac/tsconfig",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "@alikuxac/tsconfig-core": "npm:@alikuxac/tsconfig@latest"
+    },
+    "exports": {
+        "./cloudflare-workers.json": "./cloudflare-workers.json",
+        "./base.json": "./base.json"
+    }
+}
+

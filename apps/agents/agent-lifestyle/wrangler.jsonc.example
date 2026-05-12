@@ -1,0 +1,55 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "agent-lifestyle",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "GAMER_AGENT",
+                "class_name": "GamerWorker"
+            },
+            {
+                "name": "TRAVEL_AGENT",
+                "class_name": "TravelWorker"
+            },
+            {
+                "name": "CINEMA_AGENT",
+                "class_name": "CinemaWorker"
+            },
+            {
+                "name": "HOBBY_AGENT",
+                "class_name": "HobbyWorker"
+            },
+            {
+                "name": "GACHA_AGENT",
+                "class_name": "GachaWorker"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v1",
+            "new_sqlite_classes": [
+                "GamerWorker",
+                "TravelWorker",
+                "CinemaWorker",
+                "HobbyWorker",
+                "GachaWorker"
+            ]
+        }
+    ],
+    "services": [
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server",
+            "entrypoint": "OpsWorker"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}

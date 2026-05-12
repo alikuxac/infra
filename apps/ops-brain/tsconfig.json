@@ -1,0 +1,24 @@
+{
+  "extends": "../../packages/tsconfig/cloudflare-workers.json",
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "types": [
+      "@cloudflare/workers-types"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@alikuxac/discord-core": [
+        "../../packages/discord-core/src/index.ts"
+      ],
+      "@alikuxac/shared-types": [
+        "../../packages/shared-types/src/index.ts"
+      ],
+      "@alikuxac/ai-core": [
+        "../../packages/ai-core/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

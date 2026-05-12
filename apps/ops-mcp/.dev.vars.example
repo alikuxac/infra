@@ -1,0 +1,6 @@
+# Ops MCP Executor - Local Environment Variables (Secrets)
+# Rename this file to .dev.vars for local development
+
+JIRA_API_TOKEN="user@email.com:your_api_token_here"
+JIRA_DOMAIN="your-domain.atlassian.net"
+GITHUB_TOKEN="ghp_your_github_token_here"

@@ -1,0 +1,10 @@
+{
+    "extends": "@alikuxac/tsconfig/cloudflare-workers.json",
+    "compilerOptions": {
+        "outDir": "dist",
+        "rootDir": "src"
+    },
+    "include": [
+        "src/**/*"
+    ]
+}

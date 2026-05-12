@@ -1,0 +1,72 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "ops-bot",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "vars": {
+        "ENVIRONMENT": "production"
+    },
+    "env": {
+        "staging": {
+            "vars": {
+                "ENVIRONMENT": "staging"
+            },
+            "services": [
+                {
+                    "binding": "BRAIN",
+                    "service": "ops-brain",
+                    "environment": "staging"
+                },
+                {
+                    "binding": "ARM",
+                    "service": "ops-mcp-server",
+                    "environment": "staging"
+                }
+            ]
+        }
+    },
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "DiscordGatekeeper",
+                "class_name": "DiscordGatekeeper"
+            },
+            {
+                "name": "TelegramGatekeeper",
+                "class_name": "TelegramGatekeeper"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v1",
+            "new_sqlite_classes": [
+                "DiscordGatekeeper",
+                "TelegramGatekeeper"
+            ]
+        }
+    ],
+    "services": [
+        {
+            "binding": "BRAIN",
+            "service": "ops-brain"
+        },
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server"
+        }
+    ],
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "ops-brain-db",
+            "database_id": "<DATABASE_ID>"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}

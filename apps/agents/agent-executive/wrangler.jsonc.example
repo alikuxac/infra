@@ -1,0 +1,45 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "agent-executive",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "CEO_AGENT",
+                "class_name": "CEOWorker"
+            },
+            {
+                "name": "CONTENT_AGENT",
+                "class_name": "ContentWorker"
+            },
+            {
+                "name": "RESEARCHER_AGENT",
+                "class_name": "ResearcherWorker"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v1",
+            "new_sqlite_classes": [
+                "CEOWorker",
+                "ContentWorker",
+                "ResearcherWorker"
+            ]
+        }
+    ],
+    "services": [
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server",
+            "entrypoint": "OpsWorker"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}

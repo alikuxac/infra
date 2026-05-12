@@ -1,0 +1,326 @@
+export const DASHBOARD_HTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ops Empire | Context Mapping Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1e1b4b, #0f172a);
+        }
+
+        .dashboard {
+            width: 90%;
+            max-width: 1000px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin: 0;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .pane {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .pane h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tree-item {
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tree-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tree-item.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tree-item.category {
+            font-weight: 600;
+            color: var(--text-muted);
+            pointer-events: none;
+            margin-top: 12px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tree-item.channel {
+            padding-left: 24px;
+        }
+
+        .controls {
+            margin-top: 32px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
+        }
+
+        button.primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+        }
+
+        button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.4);
+        }
+
+        button.secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Context Mapping</h1>
+            <p class="subtitle">Connect Discord infrastructure to Ops Empire Workspaces</p>
+        </header>
+
+        <div class="grid">
+            <div class="pane">
+                <h2>🌐 Discord Hierarchy</h2>
+                <div id="discord-tree">Loading...</div>
+            </div>
+            <div class="pane">
+                <h2>🏗️ Internal Targets</h2>
+                <div id="internal-tree">Loading...</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <div id="status"></div>
+            <button class="secondary" onclick="refresh()">Refresh Data</button>
+            <button class="primary" id="save-btn" onclick="saveMapping()" disabled>Link Context</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedDiscordId = null;
+        let selectedDiscordType = null;
+        let selectedInternalId = null;
+        let selectedInternalType = null;
+
+        async function refresh() {
+            document.getElementById('discord-tree').innerHTML = 'Loading...';
+            document.getElementById('internal-tree').innerHTML = 'Loading...';
+            
+            const [discordRes, internalRes] = await Promise.all([
+                fetch('/api/context/discord'),
+                fetch('/api/context/internal')
+            ]);
+
+            if (!discordRes.ok || !internalRes.ok) {
+                const err = !discordRes.ok ? await discordRes.json() : await internalRes.json();
+                document.getElementById('discord-tree').innerHTML = '<span style="color: #f87171">Error loading data</span>';
+                document.getElementById('internal-tree').innerHTML = '<span style="color: #f87171">' + (err.error || 'Server error') + '</span>';
+                return;
+            }
+
+            const discordData = await discordRes.json();
+            const internalData = await internalRes.json();
+
+            renderDiscord(discordData);
+            renderInternal(internalData);
+        }
+
+        function renderDiscord(data) {
+            const container = document.getElementById('discord-tree');
+            container.innerHTML = '';
+
+            data.guilds.forEach(guild => {
+                const gElem = document.createElement('div');
+                gElem.className = 'tree-item guild';
+                gElem.innerHTML = '<span>🛡️</span> ' + guild.name;
+                gElem.onclick = () => selectDiscord(guild.id, 'server', gElem);
+                container.appendChild(gElem);
+
+                guild.categories.forEach(cat => {
+                    const cElem = document.createElement('div');
+                    cElem.className = 'tree-item category';
+                    cElem.innerHTML = cat.name;
+                    container.appendChild(cElem);
+
+                    cat.channels.forEach(ch => {
+                        const chElem = document.createElement('div');
+                        chElem.className = 'tree-item channel';
+                        chElem.innerHTML = '<span>#</span> ' + ch.name;
+                        chElem.onclick = () => selectDiscord(ch.id, 'channel', chElem);
+                        container.appendChild(chElem);
+                    });
+                });
+            });
+        }
+
+        function renderInternal(data) {
+            const container = document.getElementById('internal-tree');
+            container.innerHTML = '';
+
+            data.workspaces.forEach(ws => {
+                const wsElem = document.createElement('div');
+                wsElem.className = 'tree-item workspace';
+                wsElem.innerHTML = '<span>📁</span> ' + ws.name + ' <span class="badge">WS</span>';
+                wsElem.onclick = () => selectInternal(ws.id, 'workspace', wsElem);
+                container.appendChild(wsElem);
+
+                ws.projects.forEach(p => {
+                    const pElem = document.createElement('div');
+                    pElem.className = 'tree-item channel';
+                    pElem.innerHTML = '<span>🚀</span> ' + p.name + ' <span class="badge">Project</span>';
+                    pElem.onclick = () => selectInternal(p.id, 'project', pElem);
+                    container.appendChild(pElem);
+                });
+            });
+        }
+
+        function selectDiscord(id, type, elem) {
+            document.querySelectorAll('#discord-tree .tree-item').forEach(i => i.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedDiscordId = id;
+            selectedDiscordType = type;
+            checkReady();
+        }
+
+        function selectInternal(id, type, elem) {
+            document.querySelectorAll('#internal-tree .tree-item').forEach(i => i.classList.remove('selected'));
+            elem.classList.add('selected');
+            selectedInternalId = id;
+            selectedInternalType = type;
+            checkReady();
+        }
+
+        function checkReady() {
+            document.getElementById('save-btn').disabled = !(selectedDiscordId && selectedInternalId);
+        }
+
+        async function saveMapping() {
+            const status = document.getElementById('status');
+            status.innerText = 'Saving...';
+            
+            try {
+                const res = await fetch('/api/context/map', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        externalId: selectedDiscordId,
+                        internalType: selectedInternalType,
+                        internalId: selectedInternalId,
+                        platform: 'discord'
+                    })
+                });
+
+                if (res.ok) {
+                    status.innerHTML = '<span style="color: #4ade80">✅ Mapping saved successfully!</span>';
+                } else {
+                    throw new Error('Failed to save');
+                }
+            } catch (err) {
+                status.innerHTML = '<span style="color: #f87171">❌ Error saving mapping</span>';
+            }
+        }
+
+        refresh();
+    </script>
+</body>
+</html>
+`;

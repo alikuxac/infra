@@ -52,3 +52,65 @@ export interface CompassEventPayload {
     [key: string]: unknown;
   };
 }
+
+/**
+ * Jira Projects for the Empire
+ */
+export enum JiraProject {
+  AIO = 'AIO',   // Execution & Tasks
+  IDEA = 'IDEA', // Planning & Drafts
+  SP = 'SP'      // Support & Internal
+}
+
+/**
+ * AI Provider Configuration for Rotation
+ */
+/**
+ * AI Provider Configuration for Rotation
+ */
+export type ModelProvider = 'groq' | 'google' | 'cloudflare' | 'openrouter';
+
+/**
+ * Specialized Agent Personas
+ */
+export enum AgentPersona {
+  PLANNER = 'planner',     // Technical & Ops Planning
+  MARKETING = 'marketing', // Creative & Growth
+  RECON = 'recon',          // Data gathering & Analysis
+  EXECUTIVE = 'executive',  // Brand Strategy & Business Ops
+  CHAT = 'chat',             // Casual Chat
+
+  // Specialized Ops
+  LEAD = 'lead',
+  GUARDIAN = 'guardian',
+
+  // Specialized Growth
+  GROWTH = 'growth',
+  MARKET = 'market',
+  CX = 'cx',
+  SEO = 'seo',
+
+  // Specialized Executive
+  CEO = 'ceo',
+  CONTENT = 'content',
+  RESEARCHER = 'researcher',
+
+  // Specialized Lifestyle
+  TRAVEL = 'travel',
+  CINEMA = 'cinema',
+  HOBBY = 'hobby',
+  GACHA = 'gacha',
+  GAMER = 'gamer'
+}
+
+export interface ModelConfig {
+  provider: ModelProvider;
+  modelId: string;
+  priority: number; // Lower is higher priority
+  persona?: AgentPersona;
+  features?: {
+    supportsToolCalling: boolean;
+    supportsStructuredOutput: boolean;
+    maxContextWindow: number;
+  };
+}

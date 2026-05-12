@@ -7,21 +7,27 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "deploy": "turbo run deploy",
+    "deploy:staging": "turbo run deploy:staging",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "secrets": "tsx scripts/setup-secrets.ts",
+    "register": "tsx apps/ops-brain/scripts/register.ts",
+    "workforce": "tsx scripts/manage-workforce.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.30.0",
     "@eslint/js": "^10.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
-    "eslint": "^10.1.0",
-    "turbo": "^2.9.3",
+    "@types/node": "^20.19.39",
+    "@typescript-eslint/eslint-plugin": "^8.58.2",
+    "@typescript-eslint/parser": "^8.58.2",
+    "eslint": "^10.2.0",
+    "tsx": "^4.21.0",
+    "turbo": "^2.9.6",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.0"
+    "typescript-eslint": "^8.58.2"
   },
   "keywords": [],
   "author": "Alikuxac <admin@alikuxac.xyz>",

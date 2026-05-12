@@ -1,0 +1,32 @@
+{
+    "name": "@alikuxac/agent-ops",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy --remote",
+        "types": "wrangler types src/env.generated.d.ts"
+    },
+    "dependencies": {
+        "@ai-sdk/google": "^3.0.62",
+        "@ai-sdk/groq": "^3.0.35",
+        "@ai-sdk/openai": "^3.0.52",
+        "@alikuxac/ai-core": "workspace:*",
+        "@alikuxac/discord-core": "workspace:^",
+        "@alikuxac/shared-types": "workspace:*",
+        "@openrouter/ai-sdk-provider": "^2.5.1",
+        "agents": "^0.10.0",
+        "ai": "^3.4.33",
+        "ai-gateway-provider": "latest",
+        "discord-core": "link:..\\..\\packages\\discord-core",
+        "discord-interactions": "^4.0.0",
+        "zod": "^3.23.33"
+    },
+    "devDependencies": {
+        "@alikuxac/tsconfig": "workspace:*",
+        "@cloudflare/workers-types": "^4.20240405.0",
+        "typescript": "^5.4.5",
+        "wrangler": "^4.83.0"
+    }
+}

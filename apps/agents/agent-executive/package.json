@@ -1,0 +1,24 @@
+{
+    "name": "@alikuxac/agent-executive",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy --remote"
+    },
+    "dependencies": {
+        "@alikuxac/ai-core": "workspace:*",
+        "agents": "^0.10.0",
+        "ai": "^3.4.33",
+        "ai-gateway-provider": "latest",
+        "zod": "^4.3.6"
+    },
+    "devDependencies": {
+        "@alikuxac/tsconfig": "workspace:*",
+        "@cloudflare/workers-types": "^4.20240405.0",
+        "typescript": "^5.4.5",
+        "wrangler": "^4.83.0"
+    }
+}
+

@@ -1,0 +1,76 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "ops-brain",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-04-01",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "ENVIRONMENT": "production"
+  },
+  "env": {
+    "staging": {
+      "vars": {
+        "ENVIRONMENT": "staging"
+      },
+      "services": [
+        {
+          "binding": "ARM",
+          "service": "ops-mcp-server",
+          "environment": "staging"
+        },
+        {
+          "binding": "MESSAGING",
+          "service": "ops-bot",
+          "environment": "staging"
+        }
+      ]
+    }
+  },
+  "services": [
+    {
+      "binding": "ARM",
+      "service": "ops-mcp-server"
+    },
+    {
+      "binding": "MESSAGING",
+      "service": "ops-bot"
+    }
+  ],
+  "ai": {
+    "binding": "AI"
+  },
+  "vectorize": [
+    {
+      "binding": "VECTORIZE",
+      "index_name": "ops-brain-memory"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "QUEUE",
+        "queue": "ops-brain-tasks"
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ops-brain-db",
+      "database_id": "<DATABASE_ID>"
+    }
+  ],
+  "migrations": [
+    {
+      "tag": "v2",
+      "deleted_classes": [
+        "DiscordGatekeeper"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "agent-growth",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "GROWTH_AGENT",
+                "class_name": "GrowthWorker"
+            },
+            {
+                "name": "MARKET_AGENT",
+                "class_name": "MarketWorker"
+            },
+            {
+                "name": "CX_AGENT",
+                "class_name": "CXWorker"
+            },
+            {
+                "name": "SEO_AGENT",
+                "class_name": "SEOWorker"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v1",
+            "new_sqlite_classes": [
+                "GrowthWorker",
+                "MarketWorker",
+                "CXWorker",
+                "SEOWorker"
+            ]
+        }
+    ],
+    "services": [
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server",
+            "entrypoint": "OpsWorker"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}

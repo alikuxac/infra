@@ -1,0 +1,15 @@
+{
+  "extends": "../../packages/tsconfig/cloudflare-workers.json",
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@alikuxac/shared-types": [
+        "../../packages/shared-types/src/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

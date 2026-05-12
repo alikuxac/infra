@@ -1,0 +1,3 @@
+{
+    "extends": "@alikuxac/tsconfig/cloudflare-workers.json"
+}

@@ -1,0 +1,51 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "agent-ops",
+    "main": "src/index.ts",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "durable_objects": {
+        "bindings": [
+            {
+                "name": "GUARDIAN_AGENT",
+                "class_name": "GuardianWorker"
+            }
+        ]
+    },
+    "migrations": [
+        {
+            "tag": "v2",
+            "new_sqlite_classes": [
+                "GuardianWorker"
+            ]
+        }
+    ],
+    "services": [
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server",
+            "entrypoint": "OpsWorker"
+        }
+    ],
+    "ai": {
+        "binding": "AI"
+    },
+    "vectorize": [
+        {
+            "binding": "VECTORIZE",
+            "index_name": "ops-brain-memory"
+        }
+    ],
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "ops-brain-db",
+            "database_id": "<DATABASE_ID>"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}

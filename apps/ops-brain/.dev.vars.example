@@ -1,0 +1,15 @@
+# Ops AI Brain - Local Environment Variables (Secrets)
+# Rename this file to .dev.vars for local development
+
+DISCORD_BOT_TOKEN="your_discord_bot_token_here"
+DISCORD_PUBLIC_KEY="your_discord_app_public_key_here"
+TELEGRAM_BOT_TOKEN="your_telegram_bot_token_here"
+OPENROUTER_API_KEY="your_openrouter_api_key_here"
+
+# Monitoring & Alerts
+ERROR_ALERTS="true"
+LOG_LEVEL="info"
+EXECUTIVE_CHANNEL_ID="your_telegram_chat_id"
+DISCORD_EXECUTIVE_ID="your_discord_channel_id"
+DISCORD_ALERT_MENTION="<@&ROLE_ID>"
+TELEGRAM_ALERT_MENTION="@username"

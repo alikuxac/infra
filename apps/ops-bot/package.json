@@ -1,0 +1,28 @@
+{
+    "name": "ops-bot",
+    "version": "0.0.1",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy --remote",
+        "deploy:staging": "wrangler deploy --remote --env staging",
+        "types": "wrangler types src/env.generated.d.ts",
+        "register": "tsx --env-file=.dev.vars scripts/register.ts"
+    },
+    "dependencies": {
+        "@alikuxac/discord-core": "workspace:*",
+        "@alikuxac/shared-types": "workspace:*",
+        "discord-interactions": "^4.0.0",
+        "grammy": "^1.22.4",
+        "hono": "^4.11.7",
+        "zod": "^3.23.33"
+    },
+    "devDependencies": {
+        "@alikuxac/tsconfig": "workspace:*",
+        "@cloudflare/workers-types": "^4.20240405.0",
+        "discord-api-types": "^0.38.47",
+        "typescript": "^5.4.5",
+        "wrangler": "^4.83.0"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "$schema": "../../node_modules/wrangler/config-schema.json",
+    "name": "ops-dashboard",
+    "main": "@tanstack/react-start/server-entry",
+    "compatibility_date": "2026-04-01",
+    "compatibility_flags": [
+        "nodejs_compat"
+    ],
+    "assets": {
+        "directory": "./.output/public/",
+        "binding": "ASSETS"
+    },
+    "services": [
+        {
+            "binding": "BRAIN",
+            "service": "ops-brain"
+        },
+        {
+            "binding": "ARM",
+            "service": "ops-mcp-server"
+        }
+    ],
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "ops-brain-db",
+            "database_id": "<DATABASE_ID>"
+        }
+    ],
+    "observability": {
+        "enabled": true
+    }
+}
