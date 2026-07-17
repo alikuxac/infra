@@ -1,6 +1,5 @@
 import { createRootRoute } from '@tanstack/react-router'
-import { Outlet, ScrollRestoration } from '@tanstack/react-router'
-import { Meta, Scripts } from '@tanstack/react-start'
+import { Outlet, ScrollRestoration, HeadContent, Scripts } from '@tanstack/react-router'
 import * as React from 'react'
 
 export const Route = createRootRoute({
@@ -25,6 +24,7 @@ function RootComponent() {
                     <div className="logo">Alikuxac Empire</div>
                     <nav className="nav-links">
                         <a href="/" className="nav-link">🏙️ Workspaces</a>
+                        <a href="/agents" className="nav-link">🤖 Agents</a>
                         <a href="/mapping" className="nav-link">🔗 Mapping</a>
                         <a href="/usage" className="nav-link">📊 Usage</a>
                     </nav>
@@ -41,7 +41,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     return (
         <html>
             <head>
-                <Meta />
+                <HeadContent />
             </head>
             <body>
                 {children}

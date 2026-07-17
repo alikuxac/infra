@@ -72,9 +72,7 @@ const createProject = createServerFn({ method: 'POST' })
     })
 
 
-export const Route = createFileRoute()({
-
-
+export const Route = createFileRoute('/')({
     loader: () => getWorkspaces(),
     component: DashboardComponent
 })

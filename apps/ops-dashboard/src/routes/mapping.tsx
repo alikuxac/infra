@@ -133,7 +133,7 @@ const saveMapping = createServerFn({ method: 'POST' })
     })
 
 
-export const Route = createFileRoute()({
+export const Route = createFileRoute('/mapping')({
     loader: async () => {
         const [discord, internal, mappings] = await Promise.all([
             getDiscordHierarchy(),

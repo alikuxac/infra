@@ -148,3 +148,97 @@ body {
   padding: 8px;
   border-radius: 6px;
 }
+
+/* Agent Management Custom Styles */
+.agents-content .agent-card {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.agents-content .agent-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.agents-content .agent-card.selected {
+  background: linear-gradient(135deg, var(--primary) 0%, #4f46e5 100%) !important;
+  border-color: #818cf8;
+  color: white;
+  box-shadow: 0 10px 20px -3px rgba(99, 102, 241, 0.4);
+}
+
+.agents-content .status-badge.active {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34d399 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.agents-content .status-badge.paused {
+  background: rgba(234, 179, 8, 0.2) !important;
+  color: #fde047 !important;
+  border: 1px solid rgba(234, 179, 8, 0.4);
+}
+
+.agents-content .status-badge.inactive {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #fca5a5 !important;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.agents-content form select:focus,
+.agents-content form input:focus,
+.agents-content form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.agents-content .danger-btn {
+  background: #dc2626;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.agents-content .danger-btn:hover {
+  background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.agents-content select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 16px;
+  padding-right: 40px !important;
+}
+
+.scrolly {
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+/* Custom Scrollbar for premium feel */
+.scrolly::-webkit-scrollbar {
+  width: 6px;
+}
+.scrolly::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrolly::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.scrolly::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}

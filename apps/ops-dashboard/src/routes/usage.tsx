@@ -25,7 +25,7 @@ const getUsageData = createServerFn({ method: "GET" })
         }
     })
 
-export const Route = createFileRoute()({
+export const Route = createFileRoute('/usage')({
 
     loader: () => getUsageData(),
     component: UsageComponent
