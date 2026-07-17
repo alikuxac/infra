@@ -27,6 +27,7 @@ export class DiscordUI {
         [AgentPersona.MARKETING]: { color: 0xe91e63, icon: "📢", displayName: "Marketing Agent" },
         [AgentPersona.RECON]: { color: 0x95a5a6, icon: "🕵️", displayName: "Recon Agent" },
         [AgentPersona.EXECUTIVE]: { color: 0x2c3e50, icon: "🏛️", displayName: "Executive Agent" },
+        [AgentPersona.JOBS]: { color: 0x27ae60, icon: "💼", displayName: "CV/Jobs Specialist" },
         [AgentPersona.CHAT]: { color: 0x7f8c8d, icon: "💬", displayName: "AI Chat" },
     };
 

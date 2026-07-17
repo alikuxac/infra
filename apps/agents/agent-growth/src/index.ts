@@ -3,6 +3,7 @@ import { GrowthWorker } from "./personas/growth";
 import { MarketWorker } from "./personas/market";
 import { CXWorker } from "./personas/cx";
 import { SEOWorker } from "./personas/seo";
+import { JobsWorker } from "./personas/jobs";
 
 /**
  * Environment Interface
@@ -16,6 +17,7 @@ export interface Env {
     MARKET_AGENT: DurableObjectNamespace<MarketWorker>;
     CX_AGENT: DurableObjectNamespace<CXWorker>;
     SEO_AGENT: DurableObjectNamespace<SEOWorker>;
+    JOBS_AGENT: DurableObjectNamespace<JobsWorker>;
 
     // Secrets & Vars
     CF_ACCOUNT_ID: string;
@@ -24,7 +26,7 @@ export interface Env {
 }
 
 // Re-export for DO registration
-export { GrowthWorker, MarketWorker, CXWorker, SEOWorker };
+export { GrowthWorker, MarketWorker, CXWorker, SEOWorker, JobsWorker };
 
 export default {
     async fetch(request: Request, env: any) {

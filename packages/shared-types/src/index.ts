@@ -89,6 +89,7 @@ export enum AgentPersona {
   MARKET = 'market',
   CX = 'cx',
   SEO = 'seo',
+  JOBS = 'jobs',
 
   // Specialized Executive
   CEO = 'ceo',

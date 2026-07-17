@@ -382,7 +382,7 @@ export class Orchestrator {
         agent_id: z.enum([
           "guardian", "ceo", "seo", "content", "researcher",
           "growth", "market", "cx", "lead", "gamer",
-          "travel", "cinema", "hobby", "gacha"
+          "travel", "cinema", "hobby", "gacha", "jobs"
         ]).describe("ID of the sub-agent to invoke"),
         task: z.string().describe("The specific instruction or goal for the sub-agent")
       }),
@@ -401,7 +401,7 @@ export class Orchestrator {
             bindingName = "AGENT_OPS" as keyof Env;
           } else if (["ceo", "content", "researcher"].includes(agent_id)) {
             bindingName = "AGENT_EXECUTIVE" as keyof Env;
-          } else if (["seo", "growth", "market", "cx"].includes(agent_id)) {
+          } else if (["seo", "growth", "market", "cx", "jobs"].includes(agent_id)) {
             bindingName = "AGENT_GROWTH" as keyof Env;
           } else if (["gamer", "travel", "cinema", "hobby", "gacha"].includes(agent_id)) {
             bindingName = "AGENT_LIFESTYLE" as keyof Env;
