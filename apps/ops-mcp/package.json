@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "@alikuxac/discord-core": "workspace:*",
     "agents": "^0.10.0",
     "zod": "^3.23.33"
   },

@@ -382,6 +382,9 @@ importers:
 
   apps/ops-mcp:
     dependencies:
+      '@alikuxac/discord-core':
+        specifier: workspace:*
+        version: link:../../packages/discord-core
       '@modelcontextprotocol/sdk':
         specifier: ^1.29.0
         version: 1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)

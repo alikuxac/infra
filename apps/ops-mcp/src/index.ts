@@ -21,6 +21,7 @@ import { ProfileToolkit } from "./toolkits/ops/profiles.js";
 import { ExecutiveToolkit } from "./toolkits/ops/executive.js";
 import { MarketingToolkit } from "./toolkits/ops/marketing.js";
 import { LifestyleToolkit } from "./toolkits/ops/lifestyle.js";
+import { DiscordToolkit } from "./toolkits/ops/discord.js";
 
 /**
  * Environment Interface
@@ -96,6 +97,7 @@ export class OpsMCP extends McpAgent {
         new ExecutiveToolkit().register(this.registry);
         new MarketingToolkit().register(this.registry);
         new LifestyleToolkit().register(this.registry);
+        new DiscordToolkit().register(this.registry);
       } catch (err) {
         console.error(`[OpsMCP] Failed to load functional toolkits:`, err);
       }

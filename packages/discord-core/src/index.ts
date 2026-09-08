@@ -200,4 +200,186 @@ export class DiscordClient {
         if (!response.ok) return [];
         return response.json();
     }
+
+    /**
+     * Create a guild channel
+     */
+    async createChannel(guildId: string, options: { name: string; type?: number; parent_id?: string; topic?: string; nsfw?: boolean; rate_limit_per_user?: number; position?: number; permission_overwrites?: any[] }) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/channels`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Modify a channel
+     */
+    async modifyChannel(channelId: string, options: { name?: string; type?: number; position?: number; topic?: string; nsfw?: boolean; rate_limit_per_user?: number; bitrate?: number; user_limit?: number; permission_overwrites?: any[]; parent_id?: string }) {
+        const response = await fetch(`${this.baseUrl}/channels/${channelId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Delete a channel
+     */
+    async deleteChannel(channelId: string) {
+        const response = await fetch(`${this.baseUrl}/channels/${channelId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Get guild roles
+     */
+    async getRoles(guildId: string): Promise<any[]> {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/roles`, {
+            headers: { Authorization: `Bot ${this.token}` },
+        });
+        if (!response.ok) return [];
+        return response.json();
+    }
+
+    /**
+     * Create guild role
+     */
+    async createRole(guildId: string, options: { name?: string; permissions?: string; color?: number; hoist?: boolean; mentionable?: boolean }) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/roles`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Modify guild role
+     */
+    async modifyRole(guildId: string, roleId: string, options: { name?: string; permissions?: string; color?: number; hoist?: boolean; mentionable?: boolean }) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/roles/${roleId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json();
+    }
+
+    /**
+     * Delete guild role
+     */
+    async deleteRole(guildId: string, roleId: string) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/roles/${roleId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
+
+    /**
+     * Add guild member role
+     */
+    async addMemberRole(guildId: string, userId: string, roleId: string) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/members/${userId}/roles/${roleId}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
+
+    /**
+     * Remove guild member role
+     */
+    async removeMemberRole(guildId: string, userId: string, roleId: string) {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/members/${userId}/roles/${roleId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
+
+    /**
+     * Edit channel permission overwrites
+     */
+    async setChannelPermission(channelId: string, overwriteId: string, options: { allow: string; deny: string; type: number }) {
+        const response = await fetch(`${this.baseUrl}/channels/${channelId}/permissions/${overwriteId}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
+
+    /**
+     * Delete channel permission overwrites
+     */
+    async deleteChannelPermission(channelId: string, overwriteId: string) {
+        const response = await fetch(`${this.baseUrl}/channels/${channelId}/permissions/${overwriteId}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
 }
+

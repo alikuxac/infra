@@ -100,11 +100,11 @@ export class ProjectToolkit implements Toolkit {
         // 5. Context Map: add
         registry.registerTool({
             name: "context_map_add",
-            description: "Link an external platform ID (Discord, etc) to a Workspace or Project.",
+            description: "Link an external platform ID to a Workspace or Project. Use platform='discord' for chat channels, and platform='discord_guild' for Discord servers/guilds.",
             category: "ops",
             inputSchema: z.object({
-                platform: z.string(),
-                externalId: z.string(),
+                platform: z.string().describe("The platform (e.g. 'discord' for chat channel mapping, 'discord_guild' for server/guild mapping)"),
+                externalId: z.string().describe("The external ID (e.g. Discord Guild ID or Channel ID)"),
                 internalType: z.enum(["workspace", "project"]),
                 internalId: z.string()
             })
@@ -127,7 +127,7 @@ export class ProjectToolkit implements Toolkit {
             description: "Get internal mapping for an external ID.",
             category: "ops",
             inputSchema: z.object({
-                platform: z.string(),
+                platform: z.string().describe("The platform name (e.g. 'discord')"),
                 externalId: z.string()
             })
         }, async ({ platform, externalId }) => {
@@ -136,6 +136,24 @@ export class ProjectToolkit implements Toolkit {
                 "SELECT * FROM context_mappings WHERE platform = ? AND external_id = ? AND env = ?"
             ).bind(platform, externalId, currentEnv).first();
             return { content: [{ type: "text", text: JSON.stringify(res || null) }] };
+        });
+
+        // 7. Context Map: find external
+        registry.registerTool({
+            name: "context_map_find_external",
+            description: "Find the external platform ID mapped to a Workspace or Project. Use platform='discord' for chat channels, and platform='discord_guild' for Discord servers/guilds.",
+            category: "ops",
+            inputSchema: z.object({
+                platform: z.string().describe("The external platform (e.g. 'discord' for chat channels, 'discord_guild' for server/guild mapping)"),
+                internalType: z.enum(["workspace", "project"]).describe("The internal type ('workspace' or 'project')"),
+                internalId: z.string().describe("The ID of the workspace or project")
+            })
+        }, async ({ platform, internalType, internalId }) => {
+            const currentEnv = env.ENVIRONMENT || "production";
+            const res = await env.DB.prepare(
+                "SELECT * FROM context_mappings WHERE platform = ? AND internal_type = ? AND internal_id = ? AND env = ?"
+            ).bind(platform, internalType, internalId, currentEnv).all();
+            return { content: [{ type: "text", text: JSON.stringify(res.results || []) }] };
         });
     }
 }
