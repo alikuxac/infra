@@ -71,7 +71,7 @@ export const resolveGatewayConfig = async (env: any): Promise<GatewayConfig> => 
 /**
  * Common Model Configuration with AI Gateway
  */
-export const getModel = async (env: GatewayConfig, provider: string, model: string): Promise<LanguageModel> => {
+export const getModel = async (env: GatewayConfig, provider: string, model: string): Promise<any> => {
     // Dynamic imports to reduce bundle size
     const { createAiGateway } = await import('ai-gateway-provider');
 
@@ -83,11 +83,11 @@ export const getModel = async (env: GatewayConfig, provider: string, model: stri
 
     if (provider === "google") {
         const { createGoogleGenerativeAI } = await import('ai-gateway-provider/providers/google');
-        return aigateway([createGoogleGenerativeAI({})(model)]) as unknown as LanguageModel;
+        return aigateway([createGoogleGenerativeAI({})(model)]);
     }
     if (provider === "groq") {
         const { createGroq } = await import('ai-gateway-provider/providers/groq');
-        return aigateway([createGroq({})(model)]) as unknown as LanguageModel;
+        return aigateway([createGroq({})(model)]);
     }
 
     const { createOpenRouter } = await import('ai-gateway-provider/providers/openrouter');
@@ -95,7 +95,7 @@ export const getModel = async (env: GatewayConfig, provider: string, model: stri
         ? model.replace("openrouter/", "")
         : model;
 
-    return aigateway([createOpenRouter({})(actualModelId)]) as unknown as LanguageModel;
+    return (aigateway as any)([createOpenRouter({})(actualModelId)]);
 };
 
 export interface FallbackOptions {
@@ -129,7 +129,7 @@ export const generateWithFallback = async (env: GatewayConfig | any, options: Fa
     try {
         const model = await getModel(config, provider, modelId);
         const result = await generateText({
-            model,
+            model: model as any,
             system: options.system,
             ...(options.prompt ? { prompt: options.prompt } : { messages: options.messages || [] }),
             tools: options.tools,

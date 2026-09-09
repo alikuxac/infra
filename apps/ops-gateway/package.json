@@ -11,11 +11,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "hono": "^4.11.7",
-    "@alikuxac/shared-types": "workspace:*"
+    "@alikuxac/shared-types": "workspace:*",
+    "hono": "^4.13.7"
   },
   "devDependencies": {
     "typescript": "^5.9.3",
-    "wrangler": "^4.83.0"
+    "wrangler": "^4.129.1"
   }
 }

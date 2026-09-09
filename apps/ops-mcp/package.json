@@ -9,15 +9,15 @@
     "deploy:staging": "wrangler deploy --remote --env staging"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
     "@alikuxac/discord-core": "workspace:*",
-    "agents": "^0.10.0",
-    "zod": "^3.23.33"
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "agents": "^0.10.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@alikuxac/tsconfig": "workspace:*",
-    "@cloudflare/workers-types": "^4.20240405.0",
-    "typescript": "^5.4.5",
-    "wrangler": "^4.83.0"
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.129.1"
   }
 }

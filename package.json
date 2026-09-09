@@ -18,16 +18,16 @@
     "workforce": "tsx scripts/manage-workforce.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.30.0",
+    "@changesets/cli": "^2.31.1",
     "@eslint/js": "^10.0.1",
-    "@types/node": "^20.19.39",
-    "@typescript-eslint/eslint-plugin": "^8.58.2",
-    "@typescript-eslint/parser": "^8.58.2",
-    "eslint": "^10.2.0",
-    "tsx": "^4.21.0",
-    "turbo": "^2.9.6",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.2"
+    "@types/node": "^20.19.43",
+    "@typescript-eslint/eslint-plugin": "^8.70.0",
+    "@typescript-eslint/parser": "^8.70.0",
+    "eslint": "^10.10.0",
+    "tsx": "^4.23.13",
+    "turbo": "^2.10.12",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0"
   },
   "keywords": [],
   "author": "Alikuxac <admin@alikuxac.xyz>",
