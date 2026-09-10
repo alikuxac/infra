@@ -9,14 +9,22 @@ inputs:
     description: 'Status of the event (SUCCESSFUL, FAILED, etc.)'
     required: true
   gateway-url:
-    description: 'URL of the Ops Gateway. Defaults to internal portal if omitted.'
+    description: 'URL of the Ops Gateway. Defaults to process.env.OPS_GATEWAY_URL if omitted.'
     required: false
   gateway-secret:
     description: 'X-GATEWAY-SECRET for auth'
     required: true
+
+
+  allowed-owners:
+    description: 'Comma-separated list of allowed owners (defaults to alikuxac)'
+    required: false
+    default: 'alikuxac'
   path:
     description: 'Sub-path for monorepo mapping'
     required: false
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
+
+

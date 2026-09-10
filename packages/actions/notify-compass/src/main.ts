@@ -4,17 +4,29 @@ import type { BaseEventInput } from '@alikuxac/shared-types';
 
 async function run(): Promise<void> {
   try {
-    const type = core.getInput('type', { required: true }) as import('@alikuxac/shared-types').EventType;
     const status = core.getInput('status', { required: true });
-    const gatewayUrl = core.getInput('gateway-url', { required: true });
     const gatewaySecret = core.getInput('gateway-secret', { required: true });
     const path = core.getInput('path');
+
+    // Auto-detection & flexible lookup (Input or ENV variable)
+    const gatewayUrl = core.getInput('gateway-url') || process.env.OPS_GATEWAY_URL;
+    if (!gatewayUrl) {
+      throw new Error('Ops Gateway URL is not specified via input "gateway-url" or environment variable "OPS_GATEWAY_URL".');
+    }
+    
+    let type: string | undefined = core.getInput('type');
+    if (!type) {
+      const { eventName } = github.context;
+      if (eventName === 'pull_request') type = 'build';
+      else if (eventName === 'push' || eventName === 'workflow_dispatch') type = 'deployment';
+      else type = 'deployment';
+    }
 
     const { owner, repo } = github.context.repo;
     const repoId = github.context.payload.repository?.id?.toString() || '';
 
     const payload: BaseEventInput = {
-      type,
+      type: type as BaseEventInput['type'],
       repoId,
       owner,
       status,
@@ -51,3 +63,4 @@ async function run(): Promise<void> {
 }
 
 run();
+

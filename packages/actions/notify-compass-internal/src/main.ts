@@ -8,8 +8,11 @@ async function run(): Promise<void> {
     const gatewaySecret = core.getInput('gateway-secret', { required: true });
     const path = core.getInput('path');
 
-    // Auto-detection logic
-    const gatewayUrl = core.getInput('gateway-url') || 'https://ops-gateway.alikuxac.xyz';
+    // Dynamic lookup: from input OR environment variable OPS_GATEWAY_URL
+    const gatewayUrl = core.getInput('gateway-url') || process.env.OPS_GATEWAY_URL;
+    if (!gatewayUrl) {
+      throw new Error('Ops Gateway URL is not specified via input "gateway-url" or environment variable "OPS_GATEWAY_URL".');
+    }
     
     let type: string | undefined = core.getInput('type');
     if (!type) {
@@ -23,7 +26,8 @@ async function run(): Promise<void> {
     const repoId = github.context.payload.repository?.id?.toString() || '';
 
     // Internal Security: Whitelist owner
-    const ALLOWED_OWNERS = ['alikuxac'];
+    const allowedOwnersInput = core.getInput('allowed-owners') || 'alikuxac';
+    const ALLOWED_OWNERS = allowedOwnersInput.split(',').map((o) => o.trim()).filter(Boolean);
     if (!ALLOWED_OWNERS.includes(owner)) {
       core.info(`⏭️ Skipping: owner '${owner}' is not in the whitelist.`);
       return;

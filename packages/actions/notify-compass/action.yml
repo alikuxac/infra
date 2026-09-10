@@ -3,14 +3,15 @@ description: 'Send deployment/build events to Atlassian Compass via Ops Gateway'
 author: 'Alikuxac'
 inputs:
   type:
-    description: 'Event type (deployment, build, incident, alert)'
-    required: true
+    description: 'Event type (deployment, build, incident, alert). Auto-detected if omitted.'
+    required: false
   status:
     description: 'Status of the event (SUCCESSFUL, FAILED, etc.)'
     required: true
   gateway-url:
-    description: 'URL of the Ops Gateway'
-    required: true
+    description: 'URL of the Ops Gateway. Defaults to process.env.OPS_GATEWAY_URL if omitted.'
+    required: false
+
   gateway-secret:
     description: 'X-GATEWAY-SECRET for auth'
     required: true
@@ -18,5 +19,7 @@ inputs:
     description: 'Sub-path for monorepo mapping'
     required: false
 runs:
-  using: 'node20'
+  using: 'node24'
   main: 'dist/index.js'
+
+
