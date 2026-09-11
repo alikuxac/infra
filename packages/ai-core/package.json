@@ -21,12 +21,12 @@
         "lint": "eslint src --ext .ts"
     },
     "dependencies": {
-        "ai": "^6.0.277",
+        "ai": "6.0.277",
         "ai-gateway-provider": "latest"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
-        "@cloudflare/workers-types": "^4.20260702.1",
-        "typescript": "^5.9.3"
+        "@cloudflare/workers-types": "4.20260702.1",
+        "typescript": "5.9.3"
     }
 }

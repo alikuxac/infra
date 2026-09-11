@@ -9,15 +9,15 @@
     },
     "dependencies": {
         "@alikuxac/ai-core": "workspace:*",
-        "agents": "^0.10.2",
-        "ai": "^5.0.0",
+        "agents": "0.10.2",
+        "ai": "5.0.255",
         "ai-gateway-provider": "latest",
-        "zod": "^4.5.4"
+        "zod": "4.5.4"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
-        "@cloudflare/workers-types": "^4.20260702.1",
-        "typescript": "^5.9.3",
-        "wrangler": "^4.129.1"
+        "@cloudflare/workers-types": "4.20260702.1",
+        "typescript": "5.9.3",
+        "wrangler": "4.129.1"
     }
 }
