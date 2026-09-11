@@ -5,7 +5,10 @@ node_modules/
 
 # Build outputs
 dist/
+!.github/
+!packages/actions/**/dist/
 .next/
+
 .turbo/
 out/
 
