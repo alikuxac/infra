@@ -10,7 +10,7 @@
     "dependencies": {
         "@alikuxac/ai-core": "workspace:*",
         "agents": "^0.10.2",
-        "ai": "^3.4.33",
+        "ai": "^5.0.0",
         "ai-gateway-provider": "latest",
         "zod": "^4.5.4"
     },

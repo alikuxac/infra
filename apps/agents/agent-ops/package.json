@@ -17,7 +17,7 @@
         "@alikuxac/shared-types": "workspace:*",
         "@openrouter/ai-sdk-provider": "^2.10.0",
         "agents": "^0.10.2",
-        "ai": "^3.4.33",
+        "ai": "^5.0.0",
         "ai-gateway-provider": "latest",
         "discord-core": "link:..\\..\\packages\\discord-core",
         "discord-interactions": "^4.4.0",
