@@ -18,28 +18,28 @@
     "workforce": "tsx scripts/manage-workforce.ts"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.1",
-    "@eslint/js": "^10.0.1",
-    "@types/node": "^20.19.43",
-    "@typescript-eslint/eslint-plugin": "^8.70.0",
-    "@typescript-eslint/parser": "^8.70.0",
-    "eslint": "^10.10.0",
-    "tsx": "^4.23.13",
-    "turbo": "^2.10.12",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.70.0"
+    "@changesets/cli": "2.31.1",
+    "@eslint/js": "10.0.1",
+    "@types/node": "20.19.43",
+    "@typescript-eslint/eslint-plugin": "8.70.0",
+    "@typescript-eslint/parser": "8.70.0",
+    "eslint": "10.10.0",
+    "tsx": "4.23.13",
+    "turbo": "2.10.12",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.0"
   },
   "keywords": [],
   "author": "Alikuxac <admin@alikuxac.xyz>",
   "license": "MIT",
   "packageManager": "pnpm@10.5.2",
   "engines": {
-    "node": ">=20.0.0",
-    "pnpm": ">=9.0.0"
+    "node": "v26.8.2",
+    "pnpm": "12.3.4"
   },
   "pnpm": {
     "overrides": {
-      "wrangler": "^4.85.0"
+      "wrangler": "4.131.0"
     }
   }
 }

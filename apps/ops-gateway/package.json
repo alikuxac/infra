@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@alikuxac/shared-types": "workspace:*",
-    "hono": "^4.13.7"
+    "hono": "4.13.7"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "wrangler": "^4.129.1"
+    "typescript": "5.9.3",
+    "wrangler": "4.129.1"
   }
 }

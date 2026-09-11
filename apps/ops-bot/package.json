@@ -13,16 +13,16 @@
     "dependencies": {
         "@alikuxac/discord-core": "workspace:*",
         "@alikuxac/shared-types": "workspace:*",
-        "discord-interactions": "^4.4.0",
-        "grammy": "^1.46.0",
-        "hono": "^4.13.7",
-        "zod": "^3.25.76"
+        "discord-interactions": "4.4.0",
+        "grammy": "1.46.0",
+        "hono": "4.13.7",
+        "zod": "3.25.76"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
-        "@cloudflare/workers-types": "^4.20260702.1",
-        "discord-api-types": "^0.38.55",
-        "typescript": "^5.9.3",
-        "wrangler": "^4.129.1"
+        "@cloudflare/workers-types": "4.20260702.1",
+        "discord-api-types": "0.38.55",
+        "typescript": "5.9.3",
+        "wrangler": "4.129.1"
     }
 }

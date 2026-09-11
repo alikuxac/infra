@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "@alikuxac/discord-core": "workspace:*",
-    "@modelcontextprotocol/sdk": "^1.30.0",
-    "agents": "^0.10.2",
-    "zod": "^3.25.76"
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "agents": "0.10.2",
+    "zod": "3.25.76"
   },
   "devDependencies": {
     "@alikuxac/tsconfig": "workspace:*",
-    "@cloudflare/workers-types": "^4.20260702.1",
-    "typescript": "^5.9.3",
-    "wrangler": "^4.129.1"
+    "@cloudflare/workers-types": "4.20260702.1",
+    "typescript": "5.9.3",
+    "wrangler": "4.129.1"
   }
 }
