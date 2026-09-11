@@ -1,0 +1,25 @@
+name: Notify Compass
+on:
+  push:
+    branches:
+      - development
+      - master
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify:
+    name: Send Event to Compass
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Notify Compass Internal
+        uses: ./packages/actions/notify-compass-internal
+        with:
+          status: 'SUCCESSFUL'
+          gateway-secret: ${{ secrets.OPS_GATEWAY_SECRET }}
+        env:
+          OPS_GATEWAY_URL: ${{ secrets.OPS_GATEWAY_URL }}
