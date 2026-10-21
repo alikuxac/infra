@@ -22,7 +22,7 @@
     "ai-gateway-provider": "3.2.0",
     "discord-interactions": "4.4.0",
     "grammy": "1.46.0",
-    "hono": "4.13.7",
+    "hono": "4.13.11",
     "tweetnacl": "1.0.3",
     "zod": "3.25.76"
   },
