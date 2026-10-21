@@ -16,7 +16,7 @@
     "@alikuxac/ai-core": "workspace:*",
     "@alikuxac/discord-core": "workspace:*",
     "@alikuxac/shared-types": "workspace:*",
-    "@modelcontextprotocol/sdk": "1.30.0",
+    "@modelcontextprotocol/sdk": "1.32.0",
     "@openrouter/ai-sdk-provider": "2.10.0",
     "ai": "6.0.277",
     "ai-gateway-provider": "3.2.0",
