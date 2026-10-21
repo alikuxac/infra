@@ -248,8 +248,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/shared-types
       '@modelcontextprotocol/sdk':
-        specifier: 1.30.0
-        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
+        specifier: 1.32.0
+        version: 1.32.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
       '@openrouter/ai-sdk-provider':
         specifier: 2.10.0
         version: 2.10.0(ai@6.0.277(zod@3.25.76))(zod@3.25.76)
@@ -386,8 +386,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/discord-core
       '@modelcontextprotocol/sdk':
-        specifier: 1.30.0
-        version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
+        specifier: 1.32.0
+        version: 1.32.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
       agents:
         specifier: 0.10.2
         version: 0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@6.0.277(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76)
@@ -2133,8 +2133,8 @@ packages:
       '@cfworker/json-schema':
         optional: true
 
-  '@modelcontextprotocol/sdk@1.30.0':
-    resolution: {integrity: sha512-xKd8OIzlqNzcqcNumGAa6g+PW2kjD5vrpcKOnfldAUPP3j7lnqMPwlTXQm8gF+UwH72z0lqaRbjr9hqGz0eITA==}
+  '@modelcontextprotocol/sdk@1.32.0':
+    resolution: {integrity: sha512-8BviX/hK4Gd2eL1KdTwm0gfl4d3wdoErW0Jd00h6nomUAtk6IJk5vwQJc6kfWtJTzN5OEV/lgIiJKI8fiDGAlA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@cfworker/json-schema': ^4.1.1
@@ -7547,7 +7547,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/sdk@1.30.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)':
+  '@modelcontextprotocol/sdk@1.32.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)':
     dependencies:
       '@hono/node-server': 2.1.1(hono@4.13.11)
       ajv: 8.20.0
