@@ -49,13 +49,13 @@ importers:
         version: link:../../../packages/ai-core
       agents:
         specifier: 0.10.2
-        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
+        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
       ai:
         specifier: 5.0.255
         version: 5.0.255(zod@4.5.4)
       ai-gateway-provider:
         specifier: latest
-        version: 4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
+        version: 4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
       zod:
         specifier: 4.5.4
         version: 4.5.4
@@ -80,13 +80,13 @@ importers:
         version: link:../../../packages/ai-core
       agents:
         specifier: 0.10.2
-        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
+        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
       ai:
         specifier: 5.0.255
         version: 5.0.255(zod@4.5.4)
       ai-gateway-provider:
         specifier: latest
-        version: 4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
+        version: 4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
       zod:
         specifier: 4.5.4
         version: 4.5.4
@@ -111,13 +111,13 @@ importers:
         version: link:../../../packages/ai-core
       agents:
         specifier: 0.10.2
-        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
+        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4)
       ai:
         specifier: 5.0.255
         version: 5.0.255(zod@4.5.4)
       ai-gateway-provider:
         specifier: latest
-        version: 4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
+        version: 4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4)
       zod:
         specifier: 4.5.4
         version: 4.5.4
@@ -160,13 +160,13 @@ importers:
         version: 2.10.0(ai@5.0.255(zod@3.25.76))(zod@3.25.76)
       agents:
         specifier: 0.10.2
-        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76)
+        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76)
       ai:
         specifier: 5.0.255
         version: 5.0.255(zod@3.25.76)
       ai-gateway-provider:
         specifier: latest
-        version: 4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@3.25.76))(@ai-sdk/provider-utils@5.0.36(zod@3.25.76))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@3.25.76))(zod@3.25.76)
+        version: 4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@3.25.76))(@ai-sdk/provider-utils@5.0.36(zod@3.25.76))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@3.25.76))(zod@3.25.76)
       discord-core:
         specifier: link:..\..\packages\discord-core
         version: link:../../packages/discord-core
@@ -307,7 +307,7 @@ importers:
         version: link:../../packages/shared-types
       '@cloudflare/vite-plugin':
         specifier: 1.54.5
-        version: 1.54.5(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(wrangler@4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5))
+        version: 1.54.5(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(wrangler@4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5))
       '@tanstack/react-query':
         specifier: 5.99.2
         version: 5.99.2(react@19.2.8)
@@ -316,7 +316,7 @@ importers:
         version: 1.168.23(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-start':
         specifier: 1.168.60
-        version: 1.168.60(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+        version: 1.168.60(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       hono:
         specifier: 4.13.7
         version: 4.13.7
@@ -355,11 +355,11 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       vite:
-        specifier: 8.2.2
-        version: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+        specifier: 8.2.4
+        version: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
       vitest:
         specifier: 4.1.11
-        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@25.9.5)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+        version: 4.1.11(@opentelemetry/api@1.9.1)(@types/node@25.9.5)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       wrangler:
         specifier: 4.131.0
         version: 4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5)
@@ -390,7 +390,7 @@ importers:
         version: 1.30.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
       agents:
         specifier: 0.10.2
-        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@6.0.277(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76)
+        version: 0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@6.0.277(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76)
       zod:
         specifier: 3.25.76
         version: 3.25.76
@@ -453,7 +453,7 @@ importers:
         version: 6.0.277(zod@4.5.4)
       ai-gateway-provider:
         specifier: latest
-        version: 4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@6.0.277(zod@4.5.4))(zod@4.5.4)
+        version: 4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@6.0.277(zod@4.5.4))(zod@4.5.4)
     devDependencies:
       '@alikuxac/tsconfig':
         specifier: workspace:*
@@ -3105,14 +3105,20 @@ packages:
 
   ai-gateway-provider@3.2.0:
     resolution: {integrity: sha512-IGSV96IqAfiZd20CWSMVQk5sVeLcJR2uQcoWLB8GdkxyvQrsU3x4U0o1Ok6bfVJug7SrlX6I8ibz9cHIkUyRtg==}
+    deprecated: |-
+      Deprecated. Use createAI from agents/models/ai-sdk:
+       https://developers.cloudflare.com/agents/models/ai-sdk/
     peerDependencies:
       '@ai-sdk/openai-compatible': ^2.0.0
       '@ai-sdk/provider': ^3.0.0
       '@ai-sdk/provider-utils': ^4.0.0
       ai: ^6.0.0
 
-  ai-gateway-provider@4.0.1:
-    resolution: {integrity: sha512-8m0ZEth/PynMFhBPgAj/Dvjyytrj7tm6EsYrusF+g8TzdUK7HpotKNeDVx0DCopzvYTz50OYsfABpmJ9mKXrXA==}
+  ai-gateway-provider@4.0.2:
+    resolution: {integrity: sha512-qSG+j0blH2ZK516WGA0ub5Au5RzAIEX59KLiWwOAwNlvIuZ9oIWkyx98AgJFuCQCCWW4VeJ4F/16KpVrVmSZUA==}
+    deprecated: |-
+      Deprecated. Use createAI from agents/models/ai-sdk:
+       https://developers.cloudflare.com/agents/models/ai-sdk/
     peerDependencies:
       '@ai-sdk/openai-compatible': ^3.0.32
       '@ai-sdk/provider': ^4.0.1
@@ -5648,8 +5654,8 @@ packages:
       yaml:
         optional: true
 
-  vite@8.2.2:
-    resolution: {integrity: sha512-cFKLV/PRgAUlIRm5WjMjJ86jrftzpqcgH+Us+DS8mI3CDNiH30Whrz8uHL3+MOLPAgqbMBAqWdAHAphOAM+z/Q==}
+  vite@8.2.4:
+    resolution: {integrity: sha512-lfauXnrf2x0p+UoA+wXh0dgFWnUjCyG6Js95KBkgaCwUU9k0DAHI4W6Q0WCx+h+5g+Alce1y4Zi2QjjK0UvGBw==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -6758,12 +6764,12 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260910.1
 
-  '@cloudflare/vite-plugin@1.54.5(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(wrangler@4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5))':
+  '@cloudflare/vite-plugin@1.54.5(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(wrangler@4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5))':
     dependencies:
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260907.1)
       miniflare: 5.20260907.0-alpha
       unenv: 2.0.0-rc.24
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
       workerd: 1.20260907.1
       wrangler: 4.131.0(@cloudflare/workers-types@4.20260702.1)(@types/node@25.9.5)
       ws: 8.21.0
@@ -7815,14 +7821,14 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.2.7':
     optional: true
 
-  '@rolldown/plugin-babel@0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@rolldown/plugin-babel@0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@babel/core': 7.29.7
       picomatch: 4.0.7
       rolldown: 1.2.7
     optionalDependencies:
       '@babel/runtime': 7.29.7
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
 
   '@rolldown/pluginutils@1.0.1': {}
 
@@ -8032,14 +8038,14 @@ snapshots:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
 
-  '@tanstack/react-start-rsc@0.1.59(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@tanstack/react-start-rsc@0.1.59(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@tanstack/react-router': 1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/router-core': 1.171.34
       '@tanstack/router-utils': 1.162.3
       '@tanstack/start-client-core': 1.170.34
       '@tanstack/start-fn-stubs': 1.162.0
-      '@tanstack/start-plugin-core': 1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@tanstack/start-plugin-core': 1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       '@tanstack/start-storage-context': 1.167.36
       pathe: 2.0.3
       react: 19.2.8
@@ -8068,21 +8074,21 @@ snapshots:
     transitivePeerDependencies:
       - crossws
 
-  '@tanstack/react-start@1.168.60(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@tanstack/react-start@1.168.60(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@tanstack/react-router': 1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/react-start-client': 1.168.39(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      '@tanstack/react-start-rsc': 0.1.59(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@tanstack/react-start-rsc': 0.1.59(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       '@tanstack/react-start-server': 1.167.46(crossws@0.4.12(srvx@0.11.22))(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@tanstack/router-utils': 1.162.3
       '@tanstack/start-client-core': 1.170.34
-      '@tanstack/start-plugin-core': 1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@tanstack/start-plugin-core': 1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       '@tanstack/start-server-core': 1.169.39(crossws@0.4.12(srvx@0.11.22))
       pathe: 2.0.3
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
     optionalDependencies:
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rspack/core'
@@ -8138,7 +8144,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/router-plugin@1.168.42(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@tanstack/router-plugin@1.168.42(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@babel/core': 7.29.7
       '@babel/template': 7.29.7
@@ -8147,11 +8153,11 @@ snapshots:
       '@tanstack/router-generator': 1.167.40
       '@tanstack/router-utils': 1.162.3
       chokidar: 5.0.0
-      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      unplugin: 3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       zod: 4.5.4
     optionalDependencies:
       '@tanstack/react-router': 1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rspack/core'
@@ -8184,7 +8190,7 @@ snapshots:
 
   '@tanstack/start-fn-stubs@1.162.0': {}
 
-  '@tanstack/start-plugin-core@1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@tanstack/start-plugin-core@1.171.49(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@babel/code-frame': 7.29.7
       '@babel/core': 7.29.7
@@ -8192,7 +8198,7 @@ snapshots:
       '@jridgewell/remapping': 2.3.5
       '@tanstack/router-core': 1.171.34
       '@tanstack/router-generator': 1.167.40
-      '@tanstack/router-plugin': 1.168.42(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@tanstack/router-plugin': 1.168.42(@tanstack/react-router@1.170.41(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       '@tanstack/router-utils': 1.162.3
       '@tanstack/start-server-core': 1.169.39(crossws@0.4.12(srvx@0.11.22))
       exsolve: 1.1.1
@@ -8204,11 +8210,11 @@ snapshots:
       srvx: 0.11.22
       tinyglobby: 0.2.17
       ufo: 1.6.4
-      vitefu: 1.1.3(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      vitefu: 1.1.3(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       xmlbuilder2: 4.0.3
       zod: 4.5.4
     optionalDependencies:
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@farmfe/core'
       - '@rspack/core'
@@ -8453,13 +8459,13 @@ snapshots:
       chai: 6.2.2
       tinyrainbow: 3.1.1
 
-  '@vitest/mocker@4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
+  '@vitest/mocker@4.1.11(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))':
     dependencies:
       '@vitest/spy': 4.1.11
       estree-walker: 3.0.3
       magic-string: 0.30.21
     optionalDependencies:
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
 
   '@vitest/pretty-format@4.1.11':
     dependencies:
@@ -8510,12 +8516,12 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76):
+  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76):
     dependencies:
       '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7)
       '@cfworker/json-schema': 4.1.1
       '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
-      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       ai: 5.0.255(zod@3.25.76)
       cron-schedule: 6.0.0
       json-schema: 0.4.0
@@ -8530,7 +8536,7 @@ snapshots:
       zod: 3.25.76
     optionalDependencies:
       '@ai-sdk/openai': 3.0.109(zod@3.25.76)
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/plugin-transform-runtime'
@@ -8539,12 +8545,12 @@ snapshots:
       - rolldown
       - supports-color
 
-  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@6.0.277(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76):
+  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@3.25.76))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@6.0.277(zod@3.25.76))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@3.25.76):
     dependencies:
       '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7)
       '@cfworker/json-schema': 4.1.1
       '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@3.25.76)
-      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       ai: 6.0.277(zod@3.25.76)
       cron-schedule: 6.0.0
       json-schema: 0.4.0
@@ -8559,7 +8565,7 @@ snapshots:
       zod: 3.25.76
     optionalDependencies:
       '@ai-sdk/openai': 3.0.109(zod@3.25.76)
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/plugin-transform-runtime'
@@ -8568,12 +8574,12 @@ snapshots:
       - rolldown
       - supports-color
 
-  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4):
+  agents@0.10.2(@ai-sdk/openai@3.0.109(zod@4.5.4))(@babel/core@7.29.7)(@babel/runtime@7.29.7)(@cloudflare/workers-types@4.20260702.1)(ai@5.0.255(zod@4.5.4))(react@19.2.8)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))(zod@4.5.4):
     dependencies:
       '@babel/plugin-proposal-decorators': 7.29.7(@babel/core@7.29.7)
       '@cfworker/json-schema': 4.1.1
       '@modelcontextprotocol/sdk': 1.29.0(@cfworker/json-schema@4.1.1)(zod@4.5.4)
-      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@rolldown/plugin-babel': 0.2.4(@babel/core@7.29.7)(@babel/runtime@7.29.7)(rolldown@1.2.7)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       ai: 5.0.255(zod@4.5.4)
       cron-schedule: 6.0.0
       json-schema: 0.4.0
@@ -8588,7 +8594,7 @@ snapshots:
       zod: 4.5.4
     optionalDependencies:
       '@ai-sdk/openai': 3.0.109(zod@4.5.4)
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/plugin-transform-runtime'
@@ -8625,7 +8631,7 @@ snapshots:
       - supports-color
       - zod
 
-  ai-gateway-provider@4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@3.25.76))(@ai-sdk/provider-utils@5.0.36(zod@3.25.76))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@3.25.76))(zod@3.25.76):
+  ai-gateway-provider@4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@3.25.76))(@ai-sdk/provider-utils@5.0.36(zod@3.25.76))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@3.25.76))(zod@3.25.76):
     dependencies:
       '@ai-sdk/openai-compatible': 3.0.44(zod@3.25.76)
       '@ai-sdk/provider': 4.0.10
@@ -8653,7 +8659,7 @@ snapshots:
       - supports-color
       - zod
 
-  ai-gateway-provider@4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4):
+  ai-gateway-provider@4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@5.0.255(zod@4.5.4))(zod@4.5.4):
     dependencies:
       '@ai-sdk/openai-compatible': 3.0.44(zod@4.5.4)
       '@ai-sdk/provider': 4.0.10
@@ -8681,7 +8687,7 @@ snapshots:
       - supports-color
       - zod
 
-  ai-gateway-provider@4.0.1(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@6.0.277(zod@4.5.4))(zod@4.5.4):
+  ai-gateway-provider@4.0.2(@ai-sdk/openai-compatible@3.0.44(zod@4.5.4))(@ai-sdk/provider-utils@5.0.36(zod@4.5.4))(@ai-sdk/provider@4.0.10)(ai@6.0.277(zod@4.5.4))(zod@4.5.4):
     dependencies:
       '@ai-sdk/openai-compatible': 3.0.44(zod@4.5.4)
       '@ai-sdk/provider': 4.0.10
@@ -11358,7 +11364,7 @@ snapshots:
       rollup: 4.63.1
       vite: 6.4.3(@types/node@25.9.5)(jiti@2.7.0)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.13)
 
-  unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
+  unplugin@3.3.0(esbuild@0.28.2)(rolldown@1.2.7)(rollup@4.63.1)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
     dependencies:
       '@jridgewell/remapping': 2.3.5
       picomatch: 4.0.7
@@ -11367,7 +11373,7 @@ snapshots:
       esbuild: 0.28.2
       rolldown: 1.2.7
       rollup: 4.63.1
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
 
   unstorage@1.17.5(aws4fetch@1.0.20)(db0@0.3.4)(ioredis@5.11.1):
     dependencies:
@@ -11535,7 +11541,7 @@ snapshots:
       terser: 5.51.2
       tsx: 4.23.13
 
-  vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13):
+  vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13):
     dependencies:
       lightningcss: 1.33.0
       picomatch: 4.0.7
@@ -11550,14 +11556,14 @@ snapshots:
       terser: 5.51.2
       tsx: 4.23.13
 
-  vitefu@1.1.3(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
+  vitefu@1.1.3(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
     optionalDependencies:
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
 
-  vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@25.9.5)(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
+  vitest@4.1.11(@opentelemetry/api@1.9.1)(@types/node@25.9.5)(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)):
     dependencies:
       '@vitest/expect': 4.1.11
-      '@vitest/mocker': 4.1.11(vite@8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
+      '@vitest/mocker': 4.1.11(vite@8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13))
       '@vitest/pretty-format': 4.1.11
       '@vitest/runner': 4.1.11
       '@vitest/snapshot': 4.1.11
@@ -11574,7 +11580,7 @@ snapshots:
       tinyexec: 1.3.1
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vite: 8.2.2(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
+      vite: 8.2.4(@types/node@25.9.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.13)
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@opentelemetry/api': 1.9.1
