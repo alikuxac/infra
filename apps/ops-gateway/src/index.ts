@@ -1,8 +1,6 @@
 import { Hono } from 'hono';
 import { verifyGatewaySecret } from './middleware/security';
 import health from './routes/health';
-import compassEvent from './routes/compass-event';
-import compassCustom from './routes/compass-custom';
 import admin from './routes/admin';
 
 const app = new Hono<{ Bindings: Env }>();
@@ -12,10 +10,6 @@ app.route('/health', health);
 
 // Apply gateway secret verification to all other routes
 app.use('*', verifyGatewaySecret);
-
-// Compass event routes
-app.route('/compass/event', compassEvent);
-app.route('/compass/custom', compassCustom);
 
 // Admin routes (has its own verifyAdmin middleware)
 app.route('/admin', admin);

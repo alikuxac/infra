@@ -1,15 +1,13 @@
 # ops-gateway
 
-Smart API Gateway for Atlassian Compass - Cloudflare Worker
+API Gateway & Security Hub - Cloudflare Worker
 
 ## Features
 
 - **Repository ID-based Security**: KV lookup by GitHub repository ID
 - **Ownership Guard**: Prevents repo transfer exploits
-- **Polymorphic Event Handling**: Supports deployment, build, incident, alert events
-- **Pull Request Filter**: Blocks pull request events (400 error)
-- **Strict Compass Schema Mapping**: Type-specific event payloads
-- **Admin CRUD API**: Manage repository configurations
+- **Admin CRUD API**: Manage repository configurations and mappings
+- **Health Monitoring**: Public status endpoints
 
 ## Setup
 
@@ -35,23 +33,13 @@ id = "YOUR_NAMESPACE_ID"
 
 ### 3. Set Secrets
 
-Run the following commands to set the 5 required secrets:
+Run the following commands to set the required secrets:
 
 ```bash
 # Gateway Auth
 wrangler secret put GATEWAY_CLIENT_SECRET
 wrangler secret put ADMIN_TOKEN
-
-# Atlassian Auth
-wrangler secret put ATLASSIAN_SITE_NAME
-wrangler secret put ATLASSIAN_EMAIL
-wrangler secret put ATLASSIAN_TOKEN
 ```
-
-### 4. Configure Variables
-
-Update `wrangler.toml` or use the Cloudflare Dashboard to set:
-- `COMPASS_CLOUD_ID`: Your Atlassian Cloud ID (GUID)
 
 ## Development
 
@@ -70,11 +58,6 @@ pnpm deploy
 ### Public
 
 - `GET /health` - Health check
-
-### Protected (X-GATEWAY-SECRET)
-
-- `POST /compass/event` - Polymorphic event handler
-- `POST /compass/custom` - Custom event handler
 
 ### Admin (Bearer Token)
 
@@ -95,8 +78,8 @@ curl -X POST https://your-worker.workers.dev/admin/repos \
     "name": "alikuxac/infra",
     "owner": "alikuxac",
     "mapping": {
-      "root": "ari:cloud:compass:...",
-      "apps/ops-gateway": "ari:cloud:compass:..."
+      "root": "...",
+      "apps/ops-gateway": "..."
     }
   }'
 ```
@@ -104,11 +87,11 @@ curl -X POST https://your-worker.workers.dev/admin/repos \
 ## Architecture
 
 ```
-Request → X-GATEWAY-SECRET → Extract repoId → KV Lookup → Ownership Guard → Route Handler → Compass API
+Request → Gateway Auth → Ownership Guard / Admin Verification → Route Handler
 ```
 
 ## Security
 
-- **Gateway Secret**: All endpoints (except `/health`) require `X-GATEWAY-SECRET` header
+- **Gateway Secret**: Endpoints require `X-GATEWAY-SECRET` header
 - **Ownership Verification**: Compares request owner with KV config owner
 - **Admin Token**: Admin endpoints require separate `ADMIN_TOKEN`

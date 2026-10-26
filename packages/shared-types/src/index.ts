@@ -9,11 +9,13 @@ export interface RepoConfig {
 }
 
 /**
+ * @deprecated Compass integration has been decommissioned.
  * Event Types
  */
 export type EventType = 'deployment' | 'build' | 'incident' | 'alert' | 'custom' | 'pullRequest';
 
 /**
+ * @deprecated Compass integration has been decommissioned.
  * Base Event Input
  */
 export interface BaseEventInput {
@@ -28,6 +30,7 @@ export interface BaseEventInput {
 }
 
 /**
+ * @deprecated Compass integration has been decommissioned.
  * Custom Event Input
  */
 export interface CustomEventInput {
@@ -42,6 +45,7 @@ export interface CustomEventInput {
 }
 
 /**
+ * @deprecated Compass integration has been decommissioned.
  * Compass Event Payload
  * Based on Atlassian Compass API specification
  */

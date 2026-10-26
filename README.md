@@ -13,7 +13,7 @@ This monorepo serves as a playground for building modern, type-safe infrastructu
 
 - **[apps/agents](file:///d:/Github/infra/apps/agents)**: A decentralized workforce of specialized AI agents (Executive, Growth, Lifestyle, Ops) built with Durable Objects.
 - **[apps/ops-brain](file:///d:/Github/infra/apps/ops-brain)**: The central intelligence and memory layer for the agent ecosystem.
-- **[apps/ops-gateway](file:///d:/Github/infra/apps/ops-gateway)**: A lightweight API Gateway and messaging hub handling Discord/Telegram/Compass integrations.
+- **[apps/ops-gateway](file:///d:/Github/infra/apps/ops-gateway)**: A lightweight API Gateway and messaging hub handling Discord/Telegram integrations.
 - **[apps/ops-dashboard](file:///d:/Github/infra/apps/ops-dashboard)**: A standalone administrative dashboard built with TanStack Start.
 - **[packages/cli](file:///d:/Github/infra/packages/cli)**: `ali` - A modular CLI tool for common infrastructure tasks.
 - **[packages/ai-core](file:///d:/Github/infra/packages/ai-core)**: Core AI orchestration logic and provider integrations (Google, OpenRouter, Groq).
