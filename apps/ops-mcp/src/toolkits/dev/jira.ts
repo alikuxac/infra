@@ -8,7 +8,6 @@ export class JiraToolkit implements Toolkit {
   register(registry: ToolkitRegistry) {
     const env = registry.getEnv();
 
-    // 1. Universal API Executor
     registry.registerTool(
       {
         name: "jira_api_call",
@@ -16,7 +15,7 @@ export class JiraToolkit implements Toolkit {
         category: "dev",
         inputSchema: z.object({
           path: z.string().describe("API endpoint path (e.g., '/rest/api/3/search')"),
-          method: z.enum(["GET", "POST", "PUT", "DELETE"]).default("GET"),
+          method: z.enum(["GET", "POST"]).default("GET"),
           body: z.unknown().optional().describe("Request body for POST/PUT methods"),
         }),
         tags: ["atlassian", "jira", "management"]
@@ -30,11 +29,12 @@ export class JiraToolkit implements Toolkit {
           return { content: [{ type: "text", text: "❌ Error: JIRA_API_TOKEN not configured." }] };
         }
 
-        const url = `https://${domain}${path}`;
+        const url = `https://${domain}${path.startsWith("/") ? path : `/${path}`}`;
 
         try {
           const response = await fetch(url, {
             method,
+            redirect: "manual",
             headers: {
               "Authorization": apiToken.includes(":") ? `Basic ${btoa(apiToken)}` : `Basic ${apiToken}`,
               "Content-Type": "application/json",
@@ -56,7 +56,6 @@ export class JiraToolkit implements Toolkit {
       }
     );
 
-    // 2. Discovery: Get Projects
     registry.registerTool(
       {
         name: "get_jira_projects",

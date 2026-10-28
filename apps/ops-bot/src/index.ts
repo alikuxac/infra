@@ -4,6 +4,7 @@ import { DiscordGatekeeper } from "./discord-gatekeeper.js";
 import { TelegramGatekeeper } from "./telegram-gatekeeper.js";
 import { verifyKey } from "discord-interactions";
 import { WorkerEntrypoint } from "cloudflare:workers";
+import { AuthService } from "./services/auth-service.js";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -58,6 +59,18 @@ app.get("/gateway/reset", async (c) => {
  * Telegram Webhook
  */
 app.post("/webhook/telegram", async (c) => {
+    const expected = c.env.TELEGRAM_WEBHOOK_SECRET;
+    const presented = c.req.header("X-Telegram-Bot-Api-Secret-Token");
+
+    if (!expected) {
+        console.error("[Telegram] TELEGRAM_WEBHOOK_SECRET is not configured; rejecting all updates.");
+        return c.text("Webhook secret not configured", 500);
+    }
+
+    if (!(await AuthService.tokenMatches(presented, expected))) {
+        return c.text("Unauthorized", 401);
+    }
+
     const id = c.env.TelegramGatekeeper.idFromName("global");
     const stub = c.env.TelegramGatekeeper.get(id);
     const resp = await stub.fetch(c.req.raw);

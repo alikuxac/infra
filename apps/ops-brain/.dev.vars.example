@@ -1,12 +1,16 @@
-# Ops AI Brain - Local Environment Variables (Secrets)
-# Rename this file to .dev.vars for local development
+OPS_INTERNAL_TOKEN="replace_with_generated_token"
 
-DISCORD_BOT_TOKEN="your_discord_bot_token_here"
-DISCORD_PUBLIC_KEY="your_discord_app_public_key_here"
-TELEGRAM_BOT_TOKEN="your_telegram_bot_token_here"
-OPENROUTER_API_KEY="your_openrouter_api_key_here"
+GATEWAY_TOKEN="your_ai_gateway_token"
+CLOUDFLARE_AI_GATEWAY="your-gateway-name"
+CLOUDFLARE_ACCOUNT_ID="your_cloudflare_account_id"
 
-# Monitoring & Alerts
+CF_GROQ_KEY="your_groq_key"
+CF_OPENROUTER_KEY="your_openrouter_key"
+CF_GOOGLE_AI_KEY="your_google_ai_key"
+
+ALLOWED_DISCORD_IDS="discord_user_id_1,discord_user_id_2"
+ALLOWED_TELEGRAM_IDS="telegram_user_id"
+
 ERROR_ALERTS="true"
 LOG_LEVEL="info"
 EXECUTIVE_CHANNEL_ID="your_telegram_chat_id"

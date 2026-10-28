@@ -6,7 +6,21 @@ export class AuthService {
             ? env.ALLOWED_DISCORD_IDS
             : env.ALLOWED_TELEGRAM_IDS;
 
-        if (!allowed || allowed === "*") return true;
-        return allowed.split(",").map(id => id.trim()).includes(userId);
+        if (!userId) return false;
+        if (!allowed || allowed.trim() === "") return false;
+        if (allowed.trim() === "*") return true;
+
+        return allowed.split(",").map(id => id.trim()).filter(Boolean).includes(userId);
+    }
+
+    static async tokenMatches(presented: string | null | undefined, expected: string | undefined): Promise<boolean> {
+        if (!presented || !expected) return false;
+
+        const encoder = new TextEncoder();
+        const a = encoder.encode(presented);
+        const b = encoder.encode(expected);
+        if (a.byteLength !== b.byteLength) return false;
+
+        return crypto.subtle.timingSafeEqual(a, b);
     }
 }

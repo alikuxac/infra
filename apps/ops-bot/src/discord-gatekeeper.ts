@@ -277,6 +277,7 @@ export class DiscordGatekeeper extends DurableObject<Env> {
 
             // Call BRAIN via RPC
             const result = await this.env.BRAIN.processIntent(
+                this.env.OPS_INTERNAL_TOKEN,
                 history,
                 (sd.metadata.persona as AgentPersona) || AgentPersona.PLANNER,
                 sd.metadata.modelAlias || "default",

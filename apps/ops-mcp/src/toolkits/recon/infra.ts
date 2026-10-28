@@ -1,18 +1,12 @@
 import { z } from "zod";
 import { Toolkit, ToolkitRegistry } from "../../core/registry.js";
+import { assertPublicDomain } from "../../core/url-safety.js";
 
 export class ReconToolkit implements Toolkit {
   name = "Recon Toolkit";
   description = "Tools for public infrastructure reconnaissance and tech stack identification";
 
-  // SAFETY GUARD: Prevent scanning internal or protected domains
-  private isSafeDomain(domain: string): boolean {
-    const forbidden = [".internal", "localhost", "127.0.0.1", "10.", "192.168.", "172."];
-    return !forbidden.some(f => domain.includes(f));
-  }
-
   register(registry: ToolkitRegistry) {
-    // 1. Tech Stack Recon (Header & Signature based)
     registry.registerTool(
       {
         name: "tech_stack_recon",
@@ -24,14 +18,15 @@ export class ReconToolkit implements Toolkit {
         tags: ["recon", "tech", "security"]
       },
       async (args) => {
-        const domain = args.domain.replace(/^https?:\/\//, '').split('/')[0];
-
-        if (!this.isSafeDomain(domain)) {
-          return { content: [{ type: "text", text: "⚠️ Safety Alert: Recon blocked for protected or internal domain." }] };
+        const safety = assertPublicDomain(args.domain);
+        if (!safety.ok || !safety.url) {
+          return { content: [{ type: "text", text: `⚠️ Safety Alert: ${safety.reason}` }], isError: true };
         }
 
+        const domain = safety.url.hostname;
+
         try {
-          const response = await fetch(`https://${domain}`, { method: 'HEAD' });
+          const response = await fetch(`https://${domain}`, { method: 'HEAD', redirect: 'manual' });
           const server = response.headers.get("Server") || "Unknown";
           const poweredBy = response.headers.get("X-Powered-By") || "Hidden";
           const cfRay = response.headers.has("CF-RAY") ? "Cloudflare" : "Direct/Other CDN";
@@ -48,7 +43,6 @@ export class ReconToolkit implements Toolkit {
       }
     );
 
-    // 2. DNS Lookup (via Google/Cloudflare DNS-over-HTTPS)
     registry.registerTool(
       {
         name: "dns_lookup",
@@ -61,10 +55,14 @@ export class ReconToolkit implements Toolkit {
         tags: ["recon", "dns", "ops"]
       },
       async (args) => {
-        const { domain, type } = args;
-        if (!this.isSafeDomain(domain)) return { content: [{ type: "text", text: "⚠️ Blocked." }] };
+        const { type } = args;
+        const safety = assertPublicDomain(args.domain);
+        if (!safety.ok || !safety.url) {
+          return { content: [{ type: "text", text: `⚠️ Blocked: ${safety.reason}` }], isError: true };
+        }
 
-        const url = `https://cloudflare-dns.com/query?name=${domain}&type=${type}`;
+        const domain = safety.url.hostname;
+        const url = `https://cloudflare-dns.com/query?name=${encodeURIComponent(domain)}&type=${encodeURIComponent(type)}`;
         try {
           const res = await fetch(url, { headers: { "Accept": "application/dns-json" } });
           const data = await res.json() as any;
@@ -82,7 +80,6 @@ export class ReconToolkit implements Toolkit {
       }
     );
 
-    // 3. System Log Reader (Simulating Logpush/KV retrieval)
     registry.registerTool(
       {
         name: "system_log_reader",
@@ -99,8 +96,6 @@ export class ReconToolkit implements Toolkit {
         const { source, timeRange, filter } = args;
         const env = registry.getEnv();
 
-        // LOGIC: In a real scenario, this would query a KV namespace or a Logpush dataset
-        // For now, we fetch from the system_logs table in D1 as a proxy if source is 'kv'
         try {
           let logs: any[] = [];
           if (source === "kv" && env.DB) {

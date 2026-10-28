@@ -97,6 +97,7 @@ export class TelegramAdapter {
 
                 // Call BRAIN via RPC
                 const result = await this.env.BRAIN.processIntent(
+                    this.env.OPS_INTERNAL_TOKEN,
                     history,
                     (sd.metadata.persona as AgentPersona) || AgentPersona.PLANNER,
                     sd.metadata.modelAlias || "default",
@@ -123,7 +124,11 @@ export class TelegramAdapter {
 
     async setWebhook(url: string) {
         console.log(`[Telegram] Setting webhook to: ${url}`);
-        return this.bot.api.setWebhook(url);
+        const secretToken = this.env.TELEGRAM_WEBHOOK_SECRET;
+        if (!secretToken) {
+            throw new Error("TELEGRAM_WEBHOOK_SECRET is not configured; refusing to register an unauthenticated webhook.");
+        }
+        return this.bot.api.setWebhook(url, { secret_token: secretToken });
     }
 
     async setCommands() {

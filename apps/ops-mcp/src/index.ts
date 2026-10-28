@@ -3,10 +3,8 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { McpAgent } from "agents/mcp";
 import { z } from "zod";
 
-// Core Registry
-import { ToolkitRegistry } from "./core/registry.js";
+import { ToolkitRegistry, type McpServerLike, type Toolkit } from "./core/registry.js";
 
-// Toolkits
 import { JiraToolkit } from "./toolkits/dev/jira.js";
 import { GitHubToolkit } from "./toolkits/dev/github.js";
 import { ConfluenceToolkit } from "./toolkits/dev/confluence.js";
@@ -23,18 +21,33 @@ import { MarketingToolkit } from "./toolkits/ops/marketing.js";
 import { LifestyleToolkit } from "./toolkits/ops/lifestyle.js";
 import { DiscordToolkit } from "./toolkits/ops/discord.js";
 
-/**
- * Environment Interface
- */
 export interface Env {
   MCP_OBJECT: DurableObjectNamespace;
   [key: string]: any;
 }
 
-/**
- * OpsMCP - The Executing Arm of the Empire.
- * Refactored to use ToolkitRegistry for modular tool management.
- */
+async function constantTimeEquals(presented: string, expected: string | undefined): Promise<boolean> {
+  if (!expected) return false;
+
+  const encoder = new TextEncoder();
+  const a = encoder.encode(presented);
+  const b = encoder.encode(expected);
+  if (a.byteLength !== b.byteLength) return false;
+
+  return crypto.subtle.timingSafeEqual(a, b);
+}
+
+function unauthorizedResponse(): Response {
+  return new Response(JSON.stringify({
+    jsonrpc: "2.0",
+    id: null,
+    error: { code: -32001, message: "Unauthorized: Invalid or missing API Key" }
+  }), {
+    status: 401,
+    headers: { "Content-Type": "application/json", "WWW-Authenticate": 'Bearer realm="ops-mcp"' }
+  });
+}
+
 export class OpsMCP extends McpAgent {
   env: Env;
   private initialized = false;
@@ -46,29 +59,23 @@ export class OpsMCP extends McpAgent {
     this.env = env;
   }
 
-  // Core MCP Server instance
   server = new McpServer({
     name: "Ops AI Empire MCP",
     version: "0.0.1",
-  });
+  }) as unknown as InstanceType<typeof McpAgent>["server"];
 
-  /**
-   * Initialize and register toolkits. Safe for concurrent calls.
-   */
   async init() {
     if (this.initialized) return;
     if (this.initPromise) return this.initPromise;
 
     this.initPromise = (async () => {
-      this.registry = new ToolkitRegistry(this.server, this.env);
+      this.registry = new ToolkitRegistry(this.server as unknown as McpServerLike, this.env);
 
-      // 1. Core System Tools
       (this.server as any).registerTool("ping", "Ping the MCP server to verify it is online.", z.object({}), async () => ({
         content: [{ type: "text", text: "pong (Executor Arm is online and ready)" }],
       }));
 
-      // 2. Register Modular Toolkits
-      const toolkits: any[] = [
+      const toolkits: Toolkit[] = [
         new JiraToolkit(),
         new GitHubToolkit(),
         new ConfluenceToolkit(),
@@ -78,31 +85,22 @@ export class OpsMCP extends McpAgent {
         new ReconToolkit(),
         new SearchToolkit({ isPublic: true }),
         new MemoryToolkit(),
-        new ProfileToolkit()
+        new ProfileToolkit(),
+        new ProjectToolkit(),
+        new ExecutiveToolkit(),
+        new MarketingToolkit(),
+        new LifestyleToolkit(),
+        new DiscordToolkit()
       ];
 
       for (const toolkit of toolkits) {
         try {
-          if (toolkit.register) {
-            this.registry.registerToolkit(toolkit);
-          }
+          this.registry.registerToolkit(toolkit);
         } catch (err) {
-          console.error(`[OpsMCP] Failed to load toolkit ${toolkit.constructor.name || 'unknown'}:`, err);
+          console.error(`[OpsMCP] Failed to load toolkit ${toolkit.constructor.name || "unknown"}:`, err);
         }
       }
 
-      // 3. Functional Toolkits (non-public or specific registration)
-      try {
-        new ProjectToolkit().register(this.registry);
-        new ExecutiveToolkit().register(this.registry);
-        new MarketingToolkit().register(this.registry);
-        new LifestyleToolkit().register(this.registry);
-        new DiscordToolkit().register(this.registry);
-      } catch (err) {
-        console.error(`[OpsMCP] Failed to load functional toolkits:`, err);
-      }
-
-      // 3. Central Data Tools (Warehouse)
       const { StorageService } = await import("./services/storage-service.js");
       const storage = new StorageService(this.env);
 
@@ -136,94 +134,139 @@ export class OpsMCP extends McpAgent {
     return this.initPromise;
   }
 
-  /**
-   * Manual JSON-RPC Handler with Security Filtering
-   */
-  async fetch(request: Request): Promise<Response> {
-    await this.init();
+  private async invokeTool(
+    name: string,
+    args: unknown,
+    isAdmin: boolean
+  ): Promise<{ ok: true; result: unknown } | { ok: false; message: string }> {
+    const tool = this.registry.getTool(name);
 
-    // 1. Authentication Layer
-    const authHeader = request.headers.get("Authorization");
-    const secret = authHeader?.startsWith("Bearer ") ? authHeader.substring(7) : null;
+    if (!tool || (!isAdmin && !tool.metadata.isPublic)) {
+      return { ok: false, message: `Tool not found or not permitted: ${name}` };
+    }
 
-    const isAdmin = secret === this.env.INTERNAL_OPS_KEY;
-    const isMember = secret === this.env.MEMBER_MCP_KEY;
+    const parsed = tool.metadata.inputSchema?.safeParse
+      ? tool.metadata.inputSchema.safeParse(args ?? {})
+      : { success: true as const, data: args ?? {} };
 
-    if (!isAdmin && !isMember) {
-      return new Response(JSON.stringify({
-        jsonrpc: "2.0",
-        error: { code: -32001, message: "Unauthorized: Invalid or missing API Key" }
-      }), { status: 401, headers: { "Content-Type": "application/json" } });
+    if (!parsed.success) {
+      return { ok: false, message: `Invalid arguments: ${parsed.error.message}` };
     }
 
     try {
-      const rpc = await request.json() as any;
+      return { ok: true, result: await tool.handler(parsed.data) };
+    } catch (toolErr) {
+      const message = toolErr instanceof Error ? toolErr.message : String(toolErr);
+      console.error(`[OpsMCP] Tool ${name} failed:`, toolErr);
+      return {
+        ok: true,
+        result: { content: [{ type: "text", text: `❌ ${message}` }], isError: true }
+      };
+    }
+  }
 
-      // Handle tools/list with potential filtering
-      if (rpc.method === "tools/list") {
-        const filter = {
-          ...rpc.params,
-          isPublicOnly: !isAdmin // If not admin, restrict to public tools only
-        };
-        const result = await this.registry.listTools(filter);
-        return Response.json({ jsonrpc: "2.0", id: rpc.id, result });
-      }
+  private async resolveAccess(secret: string | null): Promise<"admin" | "member" | null> {
+    if (!secret) return null;
+    if (await constantTimeEquals(secret, this.env.INTERNAL_OPS_KEY)) return "admin";
+    if (await constantTimeEquals(secret, this.env.MEMBER_MCP_KEY)) return "member";
+    return null;
+  }
 
-      // Handle tools/call
-      if (rpc.method === "tools/call") {
-        const { name, arguments: args } = rpc.params;
+  async fetch(request: Request): Promise<Response> {
+    await this.init();
 
-        const handler = this.registry.getToolHandler(name);
-        if (handler) {
-          const result = await handler(args);
+    const authHeader = request.headers.get("Authorization");
+    const presented = authHeader?.startsWith("Bearer ") ? authHeader.substring(7) : null;
+    const access = await this.resolveAccess(presented);
+    const isAdmin = access === "admin";
+
+    if (!access) {
+      return unauthorizedResponse();
+    }
+
+    let rpc: any;
+    try {
+      rpc = await request.json();
+    } catch {
+      return Response.json(
+        { jsonrpc: "2.0", id: null, error: { code: -32700, message: "Parse error" } },
+        { status: 400 }
+      );
+    }
+
+    const isNotification = rpc.id === undefined || rpc.id === null;
+
+    try {
+      switch (rpc.method) {
+        case "initialize":
+          return Response.json({
+            jsonrpc: "2.0",
+            id: rpc.id,
+            result: {
+              protocolVersion: rpc.params?.protocolVersion ?? "2025-06-18",
+              capabilities: { tools: { listChanged: false } },
+              serverInfo: { name: "Ops AI Empire MCP", version: "0.0.1" }
+            }
+          });
+
+        case "ping":
+          return Response.json({ jsonrpc: "2.0", id: rpc.id, result: {} });
+
+        case "tools/list": {
+          const filter = { ...rpc.params, isPublicOnly: !isAdmin };
+          const result = await this.registry.listTools(filter);
           return Response.json({ jsonrpc: "2.0", id: rpc.id, result });
         }
 
-        throw new Error(`MCP Tool not found or restricted: ${name}`);
+        case "tools/call": {
+          const { name, arguments: args } = rpc.params ?? {};
+          const outcome = await this.invokeTool(name, args, isAdmin);
+
+          if (!outcome.ok) {
+            return Response.json({
+              jsonrpc: "2.0",
+              id: rpc.id,
+              error: { code: -32602, message: outcome.message }
+            });
+          }
+
+          return Response.json({ jsonrpc: "2.0", id: rpc.id, result: outcome.result });
+        }
+
+        default:
+          if (isNotification) return new Response(null, { status: 202 });
+          return Response.json({
+            jsonrpc: "2.0",
+            id: rpc.id,
+            error: { code: -32601, message: `Method not found: ${rpc.method}` }
+          });
       }
-
-      return Response.json({
-        jsonrpc: "2.0",
-        id: rpc.id,
-        error: { code: -32601, message: "Method not implemented" }
-      });
-
-    } catch (err: any) {
+    } catch (err) {
       console.error("[OpsMCP] RPC Error:", err);
       return Response.json({
         jsonrpc: "2.0",
-        id: null,
-        error: { code: -32000, message: err.message }
+        id: rpc.id ?? null,
+        error: { code: -32603, message: "Internal error" }
       });
     }
   }
 
-  /**
-   * RPC: List all available tools (Internal Service Binding)
-   */
   async listTools(filter?: any) {
     await this.init();
-    // Service Bindings are trusted (isAdmin: true)
     return await this.registry.listTools({ ...filter, isPublicOnly: false });
   }
 
-  /**
-   * RPC: Call a specific tool (Internal Service Binding)
-   */
   async callTool(kit: string, name: string, args: any) {
     await this.init();
 
-    const handler = this.registry.getToolHandler(name);
-    if (!handler) {
-      throw new Error(`MCP Tool not found: ${name} (Requested kit: ${kit})`);
+    const outcome = await this.invokeTool(name, args, true);
+    if (!outcome.ok) {
+      throw new Error(`${outcome.message} (Requested kit: ${kit})`);
     }
 
-    return await handler(args);
+    return outcome.result;
   }
 
-  /**
-   * RPC: Get centralized AI Gateway configuration (Internal Service Binding)
-   */
   async getAIConfig() {
     return {
       accountId: this.env.CLOUDFLARE_ACCOUNT_ID || this.env.CF_ACCOUNT_ID || this.env.ACCOUNT_ID,
@@ -233,16 +276,26 @@ export class OpsMCP extends McpAgent {
   }
 }
 
-/**
- * Worker Entry Point
- */
+const INTERNAL_SESSION_KEY = "internal-service-binding";
+
+async function sessionName(secret: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(secret));
+  const hex = [...new Uint8Array(digest)].slice(0, 16).map(b => b.toString(16).padStart(2, "0")).join("");
+  return `streamable-http:${hex}`;
+}
+
 export class OpsWorker extends WorkerEntrypoint<Env> {
   async fetch(request: Request) {
     const url = new URL(request.url);
 
-    if (url.pathname === "/mcp") {
-      const id = this.env.MCP_OBJECT.idFromName("ops-empire-main");
-      const obj = this.env.MCP_OBJECT.get(id);
+    if (url.pathname === "/mcp" || url.pathname.startsWith("/mcp/")) {
+      const presented = request.headers.get("Authorization")?.replace(/^Bearer\s+/i, "");
+
+      if (!presented || !(await this.isKnownKey(presented))) {
+        return unauthorizedResponse();
+      }
+
+      const obj = this.env.MCP_OBJECT.get(this.env.MCP_OBJECT.idFromName(await sessionName(presented)));
       return obj.fetch(request);
     }
 
@@ -251,27 +304,28 @@ export class OpsWorker extends WorkerEntrypoint<Env> {
     });
   }
 
+  private async isKnownKey(presented: string): Promise<boolean> {
+    for (const expected of [this.env.INTERNAL_OPS_KEY, this.env.MEMBER_MCP_KEY]) {
+      if (await constantTimeEquals(presented, expected)) return true;
+    }
+    return false;
+  }
+
+  private async internalObject(): Promise<any> {
+    const name = await sessionName(INTERNAL_SESSION_KEY);
+    return this.env.MCP_OBJECT.get(this.env.MCP_OBJECT.idFromName(name)) as any;
+  }
+
   async listTools(filter?: any) {
-    const id = this.env.MCP_OBJECT.idFromName("ops-empire-main");
-    const obj = this.env.MCP_OBJECT.get(id) as any;
-    // Proxies to Durable Object
-    return await obj.listTools(filter);
+    return await (await this.internalObject()).listTools(filter);
   }
 
   async callTool(kit: string, name: string, args: any) {
-    const id = this.env.MCP_OBJECT.idFromName("ops-empire-main");
-    const obj = this.env.MCP_OBJECT.get(id) as any;
-    // Proxies to Durable Object
-    return await obj.callTool(kit, name, args);
+    return await (await this.internalObject()).callTool(kit, name, args);
   }
 
-  /**
-   * RPC: Get AI Gateway configuration (Proxied)
-   */
   async getAIConfig() {
-    const id = this.env.MCP_OBJECT.idFromName("ops-empire-main");
-    const obj = this.env.MCP_OBJECT.get(id) as any;
-    return await obj.getAIConfig();
+    return await (await this.internalObject()).getAIConfig();
   }
 }
 

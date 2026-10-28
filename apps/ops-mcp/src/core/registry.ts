@@ -1,5 +1,10 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
+
+export type McpServerLike = {
+  tool?: (...args: any[]) => unknown;
+  registerTool?: (...args: any[]) => unknown;
+  connect: (transport: any) => Promise<void>;
+};
 
 export type ToolCategory = "dev" | "ops" | "utility" | "planning" | "seo" | "marketing" | "recon" | "system" | "search";
 
@@ -19,68 +24,58 @@ export interface Toolkit {
   register(registry: ToolkitRegistry): void;
 }
 
-/**
- * ToolkitRegistry - Manages internal and remote toolkits with logical filtering.
- */
+export interface ToolEntry {
+  metadata: ToolMetadata;
+  handler: (args: any) => Promise<any>;
+}
+
 export class ToolkitRegistry {
-  private server: McpServer;
+  private server: McpServerLike;
   private categories: Map<string, ToolMetadata[]> = new Map();
-  private toolHandlers: Map<string, (args: any) => Promise<any>> = new Map();
+  private toolEntries: Map<string, ToolEntry> = new Map();
   private env: any;
 
-  constructor(server: McpServer, env: any) {
+  constructor(server: McpServerLike, env: any) {
     this.server = server;
     this.env = env;
   }
 
-  /**
-   * Register a single tool with metadata
-   */
   registerTool(
     metadata: ToolMetadata,
     handler: (args: any) => Promise<any>
   ) {
-    const { name, description, inputSchema, isPublic, category } = metadata;
+    const { name, description, inputSchema, category } = metadata;
+    const schema = inputSchema || z.object({});
 
-    // Register with SDK server using the newer .tool() syntax if available, fallback to .registerTool
-    // Register with SDK server using the newer .tool() syntax if available, fallback to .registerTool
     if (typeof (this.server as any).tool === 'function') {
-      (this.server as any).tool(name, description, inputSchema || z.object({}), handler);
+      (this.server as any).tool(name, description, schema, handler);
     } else if (typeof (this.server as any).registerTool === 'function') {
-      (this.server as any).registerTool(name, description, inputSchema || z.object({}), handler);
+      (this.server as any).registerTool(name, description, schema, handler);
     }
 
-    // Track for logical filtering
     if (!this.categories.has(category)) {
       this.categories.set(category, []);
     }
-    this.categories.get(category)!.push(metadata);
-    this.toolHandlers.set(name, handler);
+    this.categories.get(category)!.push({ ...metadata, inputSchema: schema });
+    this.toolEntries.set(name, { metadata: { ...metadata, inputSchema: schema }, handler });
 
     console.log(`[Registry] Tool registered: ${name} [${category}]`);
   }
 
-  /**
-   * Get a registered tool handler
-   */
-  getToolHandler(name: string) {
-    return this.toolHandlers.get(name);
+  getTool(name: string): ToolEntry | undefined {
+    return this.toolEntries.get(name);
   }
 
-  /**
-   * Register a whole toolkit
-   */
   registerToolkit(toolkit: Toolkit) {
     console.log(`[Registry] Loading toolkit: ${toolkit.name} (Public: ${!!toolkit.isPublic})`);
 
-    // Create a proxy registry that forces isPublic if toolkit is public
     const proxyRegistry = new Proxy(this, {
       get(target, prop, receiver) {
         if (prop === 'registerTool') {
           return (metadata: ToolMetadata, handler: any) => {
             return target.registerTool({
               ...metadata,
-              isPublic: toolkit.isPublic || metadata.isPublic
+              isPublic: metadata.isPublic ?? toolkit.isPublic
             }, handler);
           };
         }
@@ -91,9 +86,6 @@ export class ToolkitRegistry {
     toolkit.register(proxyRegistry as any);
   }
 
-  /**
-   * List tools with optional filters and access control
-   */
   async listTools(filter?: { category?: ToolCategory; toolkit?: string; isPublicOnly?: boolean }) {
     const allTools: ToolMetadata[] = [];
 
@@ -120,9 +112,6 @@ export class ToolkitRegistry {
     };
   }
 
-  /**
-   * Get the environment variables
-   */
   getEnv() {
     return this.env;
   }

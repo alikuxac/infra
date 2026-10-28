@@ -6,7 +6,6 @@ import { ContextDiscoveryService } from "../services/context-discovery.js";
 import { AgentPersona } from "@alikuxac/shared-types";
 import { DiscordInteraction, ChatMessage } from "../types.js";
 import { DiscordClient } from "@alikuxac/discord-core";
-import { ExecutionContext } from "@cloudflare/workers-types";
 
 export enum InteractionType {
     PING = 1,
@@ -25,14 +24,16 @@ export enum InteractionResponseType {
     APPLICATION_COMMAND_AUTOCOMPLETE = 8,
 }
 
+type RequestCtx = { waitUntil(promise: Promise<unknown>): void };
+
 export class DiscordAdapter {
     private session: SessionService;
     private interactionHandler: InteractionHandler;
     private env: Env;
-    private ctx: ExecutionContext;
+    private ctx: RequestCtx;
     private client: DiscordClient;
 
-    constructor(env: Env, ctx: ExecutionContext) {
+    constructor(env: Env, ctx: RequestCtx) {
         this.env = env;
         this.ctx = ctx;
         this.session = new SessionService(env);
@@ -90,10 +91,11 @@ export class DiscordAdapter {
                         try {
                             let responseText = "";
                             if (name === "summarize") {
-                                responseText = await this.env.BRAIN.summarize(sessionData.history);
+                                responseText = await this.env.BRAIN.summarize(this.env.OPS_INTERNAL_TOKEN, sessionData.history);
                             } else {
                                 const history: ChatMessage[] = [...sessionData.history, { role: "user", content: String(userInput) }];
                                 const result = await this.env.BRAIN.processIntent(
+                                    this.env.OPS_INTERNAL_TOKEN,
                                     history,
                                     (sessionData.metadata.persona as AgentPersona) || AgentPersona.PLANNER,
                                     sessionData.metadata.modelAlias || "default",

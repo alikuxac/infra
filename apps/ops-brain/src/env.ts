@@ -12,10 +12,16 @@ export interface Env {
 	ENVIRONMENT: string;
 
 
+	// Shared secret required by every RPC entry point and the dashboard
+	OPS_INTERNAL_TOKEN: string;
+
 	// Cloudflare & Third Party Keys
 	GATEWAY_TOKEN: string;
 	CLOUDFLARE_AI_GATEWAY: string;
 	CLOUDFLARE_ACCOUNT_ID: string;
+	CF_GROQ_KEY?: string;
+	CF_OPENROUTER_KEY?: string;
+	CF_GOOGLE_AI_KEY?: string;
 
 	// Service Bindings - Use any for RPC-capable bindings
 	ARM: any;

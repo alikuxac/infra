@@ -15,8 +15,8 @@ export class GitHubToolkit implements Toolkit {
         category: "dev",
         inputSchema: z.object({
           path: z.string().describe("API endpoint path (e.g., '/repos/{owner}/{repo}/contents/{path}')"),
-          method: z.enum(["GET", "POST", "PUT", "DELETE"]).default("GET"),
-          body: z.any().optional().describe("Request body for POST/PUT methods"),
+          method: z.enum(["GET"]).default("GET"),
+          body: z.any().optional().describe("Unused; kept for compatibility"),
         }),
         tags: ["github", "vcs"]
       },
@@ -33,6 +33,7 @@ export class GitHubToolkit implements Toolkit {
         try {
           const response = await fetch(url, {
             method,
+            redirect: "manual",
             headers: {
               "Authorization": `Bearer ${githubToken}`,
               "Accept": "application/vnd.github.v3+json",

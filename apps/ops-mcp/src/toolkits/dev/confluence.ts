@@ -15,7 +15,7 @@ export class ConfluenceToolkit implements Toolkit {
         category: "dev",
         inputSchema: z.object({
           path: z.string().describe("API path (e.g., '/wiki/api/v2/pages')"),
-          method: z.enum(["GET", "POST", "PUT", "DELETE"]).default("GET"),
+          method: z.enum(["GET", "POST"]).default("GET"),
           body: z.any().optional().describe("Request body"),
         }),
         tags: ["atlassian", "confluence", "knowledge"]
@@ -29,11 +29,12 @@ export class ConfluenceToolkit implements Toolkit {
           return { content: [{ type: "text", text: "❌ Error: JIRA_API_TOKEN (for Confluence) not configured." }] };
         }
 
-        const url = `https://${domain}${path}`;
+        const url = `https://${domain}${path.startsWith("/") ? path : `/${path}`}`;
 
         try {
           const response = await fetch(url, {
             method,
+            redirect: "manual",
             headers: {
               "Authorization": apiToken.includes(":") ? `Basic ${btoa(apiToken)}` : `Basic ${apiToken}`,
               "Content-Type": "application/json",

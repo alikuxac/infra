@@ -2,14 +2,11 @@ name: Release
 
 on:
   push:
-    branches:
-      - master
-
-concurrency: ${{ github.workflow }}-${{ github.ref }}
+    tags:
+      - "v*"
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release:
@@ -21,29 +18,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
+      - name: Validate tag matches package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          if ! printf '%s' "$tag" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Tag $GITHUB_REF_NAME is not a semver release tag (vX.Y.Z)" >&2
+            exit 1
+          fi
+          echo "Releasing $tag"
 
-      - name: Setup Node.js
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
         with:
-          node-version: 22
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm build
-
-      - name: Create Release Pull Request or Publish
-        id: changesets
-        uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
-        with:
-          publish: pnpm release
-          version: pnpm version-packages
-          commit: 'chore(release): version packages'
-          title: 'chore(release): version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-rc') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-alpha') }}

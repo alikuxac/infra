@@ -6,7 +6,6 @@ export class BasicToolkit implements Toolkit {
   description = "Essential utility tools for everyday operations";
 
   register(registry: ToolkitRegistry) {
-    // 1. Get Weather (using wttr.in)
     registry.registerTool(
       {
         name: "get_weather",
@@ -18,8 +17,12 @@ export class BasicToolkit implements Toolkit {
         tags: ["weather", "utility"]
       },
       async (args) => {
-        const { location } = args;
-        const url = `https://wttr.in/${location}?format=3`; // Unified format
+        const location = String(args.location ?? '').trim().slice(0, 64);
+        if (location === '' || /[/?#&\\]/.test(location)) {
+          return { content: [{ type: "text", text: "❌ Location must be a plain place name." }], isError: true };
+        }
+
+        const url = `https://wttr.in/${encodeURIComponent(location)}?format=3`; // Unified format
 
         try {
           const response = await fetch(url);
@@ -32,7 +35,6 @@ export class BasicToolkit implements Toolkit {
       }
     );
 
-    // 2. Get Time
     registry.registerTool(
       {
         name: "get_time",

@@ -9,7 +9,6 @@ export class MemoryToolkit implements Toolkit {
   register(registry: ToolkitRegistry) {
     const env = registry.getEnv();
 
-    // Tool: search_memory
     registry.registerTool(
       {
         name: "search_memory",
@@ -30,7 +29,6 @@ export class MemoryToolkit implements Toolkit {
           const projectResults: string[] = [];
           const currentEnv = envOverride || env.ENVIRONMENT || "production";
 
-          // 1. D1 Keyword Search
           const d1Results = await env.DB.prepare(
             "SELECT content, importance, workspace, project FROM facts " +
             "WHERE namespace = ? " +
@@ -51,7 +49,6 @@ export class MemoryToolkit implements Toolkit {
             });
           }
 
-          // 2. Vectorize Semantic Search
           const vector = await this.getEmbeddings(query, env);
           const vecMatches = await env.VECTORIZE.query(vector, {
             topK: limit,
@@ -81,7 +78,6 @@ export class MemoryToolkit implements Toolkit {
             return { content: [{ type: "text", text: "❌ No relevant information found." }] };
           }
 
-          // 3. Assemble & Truncate for Discord (limit ~1900 chars)
           let output = `## 🧠 Memory Search: "${query}"\n\n`;
 
           if (projectResults.length > 0) {
@@ -102,12 +98,12 @@ export class MemoryToolkit implements Toolkit {
       }
     );
 
-    // Tool: record_knowledge
     registry.registerTool(
       {
         name: "record_knowledge",
         description: "Save a new atomic fact, idea, or important detail to long-term memory.",
         category: "utility",
+        isPublic: false,
         inputSchema: z.object({
           fact: z.string().describe("The information to remember"),
           namespace: z.string().default("general").describe("Knowledge domain"),

@@ -1,4 +1,4 @@
-import type { DurableObjectNamespace, D1Database, ExecutionContext } from "@cloudflare/workers-types";
+import type { DurableObjectNamespace, D1Database } from "@cloudflare/workers-types";
 
 export interface Env {
     // Secret Bindings
@@ -9,6 +9,8 @@ export interface Env {
     // App Config
     ALLOWED_DISCORD_IDS: string;
     ALLOWED_TELEGRAM_IDS: string;
+    OPS_INTERNAL_TOKEN: string;
+    TELEGRAM_WEBHOOK_SECRET?: string;
 
     // Durable Objects
     DiscordGatekeeper: DurableObjectNamespace;
@@ -16,8 +18,8 @@ export interface Env {
 
     // Service Bindings
     BRAIN: {
-        processIntent(history: any[], persona: string, modelAlias: string, userMeta: any, provider: string): Promise<any>;
-        summarize(history: any[]): Promise<string>;
+        processIntent(token: string, history: any[], persona: string, modelAlias: string, userMeta: any, provider: string): Promise<any>;
+        summarize(token: string, history: any[]): Promise<string>;
     };
     ARM: {
         callTool(provider: string, tool: string, args: unknown): Promise<any>;

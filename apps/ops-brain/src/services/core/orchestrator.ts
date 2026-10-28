@@ -195,11 +195,10 @@ export class Orchestrator {
       const id = crypto.randomUUID();
       const name = goal.substring(0, 50);
 
-      // We only save if there are successful tool calls
       const steps = toolResults.map(tr => ({
         tool: tr.toolName,
         args: tr.args,
-        success: !tr.result?.error
+        success: !tr.result?.error && tr.result?.isError !== true
       }));
 
       if (steps.filter(s => s.success).length < 2) return;

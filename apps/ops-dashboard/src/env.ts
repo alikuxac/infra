@@ -7,8 +7,9 @@ export interface Env {
 
     // Service Bindings
     BRAIN: {
-        processIntent(history: unknown[], persona: string, modelAlias: string, userMeta: unknown, provider: string): Promise<unknown>;
+        processIntent(token: string, history: unknown[], persona: string, modelAlias: string, userMeta: unknown, provider: string): Promise<unknown>;
     };
+    OPS_INTERNAL_TOKEN: string;
     ARM: {
         callTool(kit: string, tool: string, args: unknown): Promise<unknown>;
         listTools(): Promise<{ tools: unknown[] }>;

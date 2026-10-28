@@ -3,7 +3,9 @@ import { Env } from "./env.js";
 import { DashboardService } from "./services/core/dashboard-service.js";
 import { renderDashboard } from "./ui/dashboard-template.js";
 import { AlertService } from "./services/core/alert-service.js";
-import type { MessageBatch, ScheduledEvent, ExecutionContext } from "@cloudflare/workers-types";
+import { AuthService } from "./services/core/auth.js";
+import { WorkerEntrypoint } from "cloudflare:workers";
+import type { MessageBatch, ScheduledEvent } from "@cloudflare/workers-types";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -17,6 +19,11 @@ app.onError(async (err, c) => {
 app.get("/", (c) => c.text("alikuxac Executive Brain Gateway (Unified)"));
 
 app.get("/dashboard", async (c) => {
+  const presented = AuthService.bearer(c.req.header("Authorization"));
+  if (!(await AuthService.tokenMatches(presented, c.env.OPS_INTERNAL_TOKEN))) {
+    return c.text("Unauthorized", 401, { "WWW-Authenticate": 'Bearer realm="ops-brain"' });
+  }
+
   const cssContent = `
         :root { --bg-color: #0d0f14; --card-bg: rgba(255, 255, 255, 0.03); --card-border: rgba(255, 255, 255, 0.08); --text-primary: #f8fafc; --text-secondary: #94a3b8; --accent-color: #6366f1; --accent-glow: rgba(99, 102, 241, 0.2); --success: #10b981; --warning: #f59e0b; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,8 +33,6 @@ app.get("/dashboard", async (c) => {
   const stats = await dashboard.getStats();
   return c.html(renderDashboard(stats, cssContent));
 });
-
-import { WorkerEntrypoint } from "cloudflare:workers";
 
 /**
  * Unified Entry Point with Fetch, Queue, and Scheduled Handlers
@@ -40,16 +45,18 @@ export default class extends WorkerEntrypoint<Env> {
     return app.fetch(request, this.env, this.ctx);
   }
 
-  /**
-   * RPC Methods for Messaging Delegation (ops-bot)
-   */
   async processIntent(
+    token: string,
     history: any[],
     persona: string,
     modelAlias: string = "default",
     userMeta?: { userId: string, platform: string },
     providerOverride: any = "google"
   ) {
+    if (!(await AuthService.tokenMatches(token, this.env.OPS_INTERNAL_TOKEN))) {
+      throw new Error("Unauthorized: invalid internal token");
+    }
+
     const { Orchestrator } = await import("./services/core/orchestrator.js");
     const orchestrator = new Orchestrator(this.env);
     const result = await orchestrator.processIntent(history, persona as any, modelAlias, userMeta, providerOverride);
@@ -61,7 +68,11 @@ export default class extends WorkerEntrypoint<Env> {
     };
   }
 
-  async summarize(history: any[]) {
+  async summarize(token: string, history: any[]) {
+    if (!(await AuthService.tokenMatches(token, this.env.OPS_INTERNAL_TOKEN))) {
+      throw new Error("Unauthorized: invalid internal token");
+    }
+
     const { Orchestrator } = await import("./services/core/orchestrator.js");
     const orchestrator = new Orchestrator(this.env);
     const result = await orchestrator.summarize(history);
@@ -72,22 +83,20 @@ export default class extends WorkerEntrypoint<Env> {
    * Queue Consumer for background tasks
    */
   async queue(batch: MessageBatch<any>): Promise<void> {
-    const { Orchestrator } = await import("./services/core/orchestrator.js");
-    const orch = new Orchestrator(this.env);
-
     for (const message of batch.messages) {
       const task = message.body;
       console.log(`[Queue] Processing task: ${task.type} (${task.id})`);
 
       try {
         switch (task.type) {
-          case "deep_research":
+          case "deep_research": {
             const { LeadWorker } = await import("./personas/lead.js");
             const lead = new LeadWorker(this.env);
             await lead.execute(task.payload.goal, {
               userId: "system", platform: "system", sessionId: task.id
             });
             break;
+          }
         }
         message.ack();
       } catch (err) {
