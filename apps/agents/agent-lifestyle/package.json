@@ -12,7 +12,7 @@
         "agents": "0.10.2",
         "ai": "5.0.255",
         "ai-gateway-provider": "latest",
-        "zod": "4.5.4"
+        "zod": "4.6.6"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
