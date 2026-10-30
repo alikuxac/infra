@@ -15,12 +15,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "commander": "13.1.0",
+    "commander": "15.0.0",
     "picocolors": "1.1.1"
   },
   "devDependencies": {
-    "@types/node": "22.20.1",
-    "tsup": "8.5.1",
-    "typescript": "6.0.3"
+    "@types/node": "26.6.6",
+    "tsup": "9.0.0",
+    "typescript": "7.0.2"
   }
 }

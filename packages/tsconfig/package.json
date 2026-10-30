@@ -3,11 +3,10 @@
     "version": "0.0.1",
     "private": true,
     "dependencies": {
-        "@alikuxac/tsconfig-core": "npm:@alikuxac/tsconfig@latest"
+        "@alikuxac/tsconfig-core": "npm:@alikuxac/tsconfig@^1.3.0"
     },
     "exports": {
         "./cloudflare-workers.json": "./cloudflare-workers.json",
         "./base.json": "./base.json"
     }
 }
-

@@ -9,24 +9,24 @@
         "types": "wrangler types src/env.generated.d.ts"
     },
     "dependencies": {
-        "@ai-sdk/google": "3.0.121",
-        "@ai-sdk/groq": "3.0.64",
-        "@ai-sdk/openai": "3.0.109",
+        "@ai-sdk/google": "4.0.107",
+        "@ai-sdk/groq": "4.0.72",
+        "@ai-sdk/openai": "4.0.104",
         "@alikuxac/ai-core": "workspace:*",
         "@alikuxac/discord-core": "workspace:^",
         "@alikuxac/shared-types": "workspace:*",
-        "@openrouter/ai-sdk-provider": "2.10.0",
-        "agents": "0.10.2",
-        "ai": "5.0.255",
-        "ai-gateway-provider": "latest",
+        "@openrouter/ai-sdk-provider": "3.1.0",
+        "agents": "0.31.0",
+        "ai": "7.0.156",
+        "ai-gateway-provider": "^4.0.2",
         "discord-core": "link:..\\..\\packages\\discord-core",
         "discord-interactions": "4.4.0",
-        "zod": "3.25.76"
+        "zod": "4.6.7"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
-        "@cloudflare/workers-types": "4.20260702.1",
-        "typescript": "5.9.3",
-        "wrangler": "4.129.1"
+        "@cloudflare/workers-types": "5.20261029.1",
+        "typescript": "7.0.2",
+        "wrangler": "4.155.0"
     }
 }
