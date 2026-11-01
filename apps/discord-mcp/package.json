@@ -1,0 +1,25 @@
+{
+  "name": "@alikuxac/discord-mcp",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "types": "wrangler types src/env.generated.d.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@alikuxac/discord-core": "workspace:*",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@alikuxac/tsconfig": "workspace:*",
+    "@cloudflare/workers-types": "5.20261029.1",
+    "typescript": "7.0.2",
+    "vitest": "^3.0.0",
+    "wrangler": "4.155.0"
+  }
+}

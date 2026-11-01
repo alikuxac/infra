@@ -1,0 +1,7 @@
+{
+  "extends": "../../packages/tsconfig/cloudflare-workers.json",
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+  ]
+}

@@ -23,6 +23,47 @@ export interface DiscordChannel {
     guild_id?: string;
 }
 
+export interface DiscordGuild {
+    id: string;
+    name: string;
+    icon: string | null;
+    description: string | null;
+    afk_channel_id: string | null;
+    afk_timeout: number;
+    system_channel_id: string | null;
+    verification_level: number;
+    default_message_notifications: number;
+    explicit_content_filter: number;
+    roles?: unknown[];
+    features?: string[];
+    banner?: string | null;
+    vanity_url_code?: string | null;
+}
+
+export interface DiscordModifyGuildOptions {
+    name?: string;
+    description?: string | null;
+    icon?: string | null;
+    afk_channel_id?: string | null;
+    afk_timeout?: number;
+    system_channel_id?: string | null;
+    verification_level?: number;
+    default_message_notifications?: number;
+    explicit_content_filter?: number;
+}
+
+export interface DiscordChannelPositionUpdate {
+    id: string;
+    position: number;
+    parent_id?: string | null;
+    lock_permissions?: boolean | null;
+}
+
+export interface DiscordRolePositionUpdate {
+    id: string;
+    position: number;
+}
+
 export class DiscordClient {
     private baseUrl = "https://discord.com/api/v10";
 
@@ -380,6 +421,75 @@ export class DiscordClient {
             throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
         }
         return response.ok;
+    }
+
+    /**
+     * Get guild metadata
+     */
+    async getGuild(guildId: string): Promise<DiscordGuild> {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}?with_counts=true`, {
+            headers: {
+                Authorization: `Bot ${this.token}`,
+            },
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json() as Promise<DiscordGuild>;
+    }
+
+    /**
+     * Modify guild settings
+     */
+    async modifyGuild(guildId: string, options: DiscordModifyGuildOptions): Promise<DiscordGuild> {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(options),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json() as Promise<DiscordGuild>;
+    }
+
+    /**
+     * Modify positions of a list of channels in a guild
+     */
+    async modifyChannelPositions(guildId: string, positions: DiscordChannelPositionUpdate[]): Promise<boolean> {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/channels`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(positions),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.ok;
+    }
+
+    /**
+     * Modify positions of a list of roles in a guild
+     */
+    async modifyRolePositions(guildId: string, positions: DiscordRolePositionUpdate[]): Promise<unknown[]> {
+        const response = await fetch(`${this.baseUrl}/guilds/${guildId}/roles`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bot ${this.token}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(positions),
+        });
+        if (!response.ok) {
+            throw new Error(`Discord API Error: ${response.status} ${await response.text()}`);
+        }
+        return response.json() as Promise<unknown[]>;
     }
 }
 
