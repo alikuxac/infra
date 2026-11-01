@@ -21,7 +21,7 @@
         "ai-gateway-provider": "latest",
         "discord-core": "link:..\\..\\packages\\discord-core",
         "discord-interactions": "4.4.0",
-        "zod": "3.25.76"
+        "zod": "4.6.6"
     },
     "devDependencies": {
         "@alikuxac/tsconfig": "workspace:*",
