@@ -14,7 +14,12 @@ export class CXWorker extends Agent<Env> {
 Focus: User satisfaction, support automation, and feedback loops.
 Feedback Data: ${context}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "CXWorker",
+                agentId: (this as any).name || (this as any).id || "cx-worker",
+                conversationId: context?.sessionId || `cx-${Date.now()}`
+            }
         });
         return result.text;
     }

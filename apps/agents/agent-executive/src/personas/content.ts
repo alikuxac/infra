@@ -17,7 +17,12 @@ Your goal is to transform technical concepts into high-end, engaging content tha
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.ARTICLE_WRITING}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "ContentWorker",
+                agentId: (this as any).name || (this as any).id || "content-worker",
+                conversationId: context?.sessionId || `content-${Date.now()}`
+            }
         });
         return result.text;
     }

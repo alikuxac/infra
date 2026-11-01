@@ -1,4 +1,18 @@
-import { generateText, type LanguageModel } from "ai";
+import * as ai from "ai";
+import { type LanguageModel } from "ai";
+import { wrapAISDK } from "agents/observability/ai";
+
+/**
+ * Traced AI SDK wrapper with Metadata-only privacy configuration.
+ * Captures spans, latencies, tokens, and agent turn telemetry without recording sensitive payload texts.
+ */
+export const tracedAI = wrapAISDK(ai, {
+    storeMessages: false,
+    storeTools: false,
+});
+export const { generateText, streamText, generateObject, streamObject } = tracedAI;
+export type { LanguageModel };
+
 // import { createAiGateway } from 'ai-gateway-provider'; // Move to lazy
 // import { createOpenRouter } from 'ai-gateway-provider/providers/openrouter';
 // import { createGoogleGenerativeAI } from 'ai-gateway-provider/providers/google';
@@ -98,6 +112,12 @@ export const getModel = async (env: GatewayConfig, provider: string, model: stri
     return (aigateway as any)([createOpenRouter({})(actualModelId)]);
 };
 
+export interface FallbackTelemetry {
+    agentName?: string;
+    agentId?: string;
+    conversationId?: string;
+}
+
 export interface FallbackOptions {
     system: string;
     prompt?: string;
@@ -105,6 +125,7 @@ export interface FallbackOptions {
     tools?: Record<string, any>;
     contextModel?: string;
     onFallback?: (model: string, error: any) => void;
+    telemetry?: FallbackTelemetry;
 }
 
 /**
@@ -128,11 +149,26 @@ export const generateWithFallback = async (env: GatewayConfig | any, options: Fa
 
     try {
         const model = await getModel(config, provider, modelId);
+        const agentName = options.telemetry?.agentName || "alikuxac-agent";
+        const agentId = options.telemetry?.agentId || "agent-core";
+        const conversationId = options.telemetry?.conversationId || "conv-default";
+
         const result = await generateText({
             model: model as any,
             system: options.system,
             ...(options.prompt ? { prompt: options.prompt } : { messages: options.messages || [] }),
             tools: options.tools,
+            runtimeContext: {
+                agentId,
+                conversationId,
+            },
+            telemetry: {
+                functionId: agentName,
+                includeRuntimeContext: {
+                    agentId: true,
+                    conversationId: true,
+                }
+            }
         });
 
         // Some providers/wrappers might hide text in individual steps if the aggregate property is buggy

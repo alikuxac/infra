@@ -35,7 +35,12 @@ PERSUASIVE PROTOCOL:
 
 Market Context: ${searchContext}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "JobsWorker",
+                agentId: (this as any).name || (this as any).id || "jobs-worker",
+                conversationId: context?.sessionId || `jobs-${Date.now()}`
+            }
         });
         return result.text;
     }

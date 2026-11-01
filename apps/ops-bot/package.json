@@ -5,8 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "wrangler dev",
-        "deploy": "wrangler deploy --remote",
-        "deploy:staging": "wrangler deploy --remote --env staging",
+        "deploy": "wrangler deploy",
+        "deploy:staging": "wrangler deploy --env staging",
         "types": "wrangler types src/env.generated.d.ts",
         "register": "tsx --env-file=.dev.vars scripts/register.ts"
     },

@@ -13,7 +13,12 @@ export class HobbyWorker extends Agent<Env> {
             system: buildSystemPrompt(`You are the Hobby Specialist for 'Alikuxac' (Lifestyle Dept). 
 Domain: Crafting, collecting, and niche skill development.`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "HobbyWorker",
+                agentId: (this as any).name || (this as any).id || "hobby-worker",
+                conversationId: context?.sessionId || `hobby-${Date.now()}`
+            }
         });
         return result.text;
     }

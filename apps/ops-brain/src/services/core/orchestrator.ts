@@ -1,4 +1,3 @@
-import { generateText } from "ai";
 import { z } from "zod";
 import { AgentPersona } from "@alikuxac/shared-types";
 import { AIService } from "./ai-service.js";
@@ -11,7 +10,7 @@ import { Env } from "../../env.js";
 import { SubAgentContext } from "../../types.js";
 import { CoreMemoryService } from "./core-memory-service.js";
 
-import { generateWithFallback, getGatewayConfig, type GatewayConfig } from "@alikuxac/ai-core";
+import { generateText, generateWithFallback, getGatewayConfig, type GatewayConfig } from "@alikuxac/ai-core";
 
 interface ARMService {
   listTools(): Promise<{ tools: MCPTool[] }>;
@@ -155,7 +154,12 @@ export class Orchestrator {
 
       const result = await generateWithFallback(gatewayConfig, {
         system: "You are the Executive Orchestrator. Provide a status update.",
-        prompt: prompt
+        prompt: prompt,
+        telemetry: {
+          agentName: "ops-brain-orchestrator",
+          agentId: "briefing-generator",
+          conversationId: `briefing-${Date.now()}`
+        }
       });
       return `📊 **Alikuxac Empire - Hourly Briefing**\n\n${result.text}\n\n*View full details at /dashboard*`;
     } catch (err) {
@@ -247,7 +251,18 @@ export class Orchestrator {
 
         const { text: distilled } = await generateText({
           model,
-          prompt: `Distill the following memory context into a concise list of atomic facts relevant to: "${userMessage}".\nContext:\n${rawContext}`
+          prompt: `Distill the following memory context into a concise list of atomic facts relevant to: "${userMessage}".\nContext:\n${rawContext}`,
+          runtimeContext: {
+            agentId: `orchestrator-rag-${namespace}`,
+            conversationId: `rag-${Date.now()}`,
+          },
+          telemetry: {
+            functionId: "ops-brain-orchestrator",
+            includeRuntimeContext: {
+              agentId: true,
+              conversationId: true,
+            }
+          }
         });
         rawContext = distilled;
       }

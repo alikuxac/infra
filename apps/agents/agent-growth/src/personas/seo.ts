@@ -26,7 +26,12 @@ SEO Data: ${seoContext}
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.ARTICLE_WRITING}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "SEOWorker",
+                agentId: (this as any).name || (this as any).id || "seo-worker",
+                conversationId: context?.sessionId || `seo-${Date.now()}`
+            }
         });
         return result.text;
     }

@@ -7,7 +7,7 @@
         "dev": "vite dev",
         "build": "vite build",
         "start": "vite start",
-        "deploy": "pnpm run build && wrangler deploy --remote"
+        "deploy": "pnpm run build && wrangler deploy"
     },
     "dependencies": {
         "@alikuxac/ai-core": "workspace:*",

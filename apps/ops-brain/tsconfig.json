@@ -5,7 +5,6 @@
     "types": [
       "@cloudflare/workers-types"
     ],
-    "baseUrl": ".",
     "paths": {
       "@alikuxac/discord-core": [
         "../../packages/discord-core/src/index.ts"

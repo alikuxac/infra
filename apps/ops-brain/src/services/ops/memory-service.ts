@@ -1,4 +1,4 @@
-import { generateText } from "ai";
+import { generateText } from "@alikuxac/ai-core";
 import { AIService } from "../core/ai-service.js";
 
 /**
@@ -73,6 +73,17 @@ Return ONLY a JSON array of objects: [{ "fact": string, "importance": number }]`
       const { text: jsonResponse } = await generateText({
         model: nativeProvider,
         prompt: prompt,
+        runtimeContext: {
+          agentId: `${workspace}-${project}-${namespace}`,
+          conversationId: `memory-distill-${Date.now()}`,
+        },
+        telemetry: {
+          functionId: "ops-brain-memory",
+          includeRuntimeContext: {
+            agentId: true,
+            conversationId: true,
+          }
+        }
       });
 
       // Simple JSON extraction to be safe

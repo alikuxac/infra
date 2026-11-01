@@ -1,4 +1,4 @@
-import { generateText, type LanguageModel } from "ai";
+import type { LanguageModel } from "ai";
 import { z } from "zod";
 import { AgentPersona } from "@alikuxac/shared-types";
 import { createAiGateway } from 'ai-gateway-provider';
@@ -54,7 +54,7 @@ export class AIService {
     if (provider === "openrouter") {
       const { createOpenRouter } = await import('ai-gateway-provider/providers/openrouter');
       const actualModelId = modelId.startsWith("openrouter/") ? modelId.replace("openrouter/", "") : modelId;
-      return aigateway([createOpenRouter()(actualModelId)]) as unknown as LanguageModel;
+      return (aigateway as any)([createOpenRouter()(actualModelId)]) as unknown as LanguageModel;
     }
     const { createOpenAI } = await import('ai-gateway-provider/providers/openai');
     return aigateway([createOpenAI()(modelId)]) as unknown as LanguageModel;
@@ -101,7 +101,12 @@ export class AIService {
         system: systemPrompt,
         messages: messages as any[],
         tools: Object.keys(aiTools).length > 0 ? aiTools : undefined,
-        contextModel: config.modelId
+        contextModel: config.modelId,
+        telemetry: {
+          agentName: "ops-brain",
+          agentId: `persona-${persona}`,
+          conversationId: `conv-${persona}-${Date.now()}`
+        }
       }, providerName);
     } catch (err: any) {
       console.error("[AIService] Execution Error:", err);
@@ -139,7 +144,12 @@ export class AIService {
             Focus on key decisions, technical hurdles, and next steps specific to this context. 
             Format in 5-10 concise bullet points with a clear header.`
           }
-        ]
+        ],
+        telemetry: {
+          agentName: "ops-brain-summarizer",
+          agentId: `${workspace}-${project}`,
+          conversationId: `summary-${Date.now()}`
+        }
       });
       return `### 📝 Session Summary: ${project} (${workspace})\n${result.text}`;
     } catch (err) {

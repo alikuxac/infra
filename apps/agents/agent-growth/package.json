@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "wrangler dev",
-        "deploy": "wrangler deploy --remote"
+        "deploy": "wrangler deploy"
     },
     "dependencies": {
         "@alikuxac/ai-core": "workspace:*",

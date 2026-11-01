@@ -56,7 +56,10 @@
     ]
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "traces": {
+      "enabled": true
+    }
   },
   "d1_databases": [
     {

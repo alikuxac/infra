@@ -29,7 +29,12 @@ ${SKILL_PLAYBOOKS.SECURITY_AUDIT}
 
 Current Health: ${healthData}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "GuardianWorker",
+                agentId: (this as any).name || (this as any).id || "guardian-worker",
+                conversationId: context?.sessionId || `guardian-${Date.now()}`
+            }
         });
         return result.text;
     }

@@ -22,7 +22,12 @@ export class GachaWorker extends Agent<Env> {
             system: buildSystemPrompt(`You are the Gacha Specialist for 'Alikuxac' (Lifestyle Dept). 
 Domain: Probability analysis, resource management, and character meta.`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "GachaWorker",
+                agentId: (this as any).name || (this as any).id || "gacha-worker",
+                conversationId: context?.sessionId || `gacha-${Date.now()}`
+            }
         });
         return result.text;
     }

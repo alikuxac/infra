@@ -14,7 +14,12 @@ export class MarketWorker extends Agent<Env> {
         const searchPlan = await generateWithFallback(this.env, {
             system: buildSystemPrompt("You are the Market Strategist. Break down market goals into 3 targeted search queries to identify competitors and trends."),
             prompt: `Goal: "${goal}"\nQueries ONLY, one per line.`,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "MarketWorker",
+                agentId: (this as any).name || (this as any).id || "market-worker",
+                conversationId: context?.sessionId || `market-${Date.now()}`
+            }
         });
         const queries = searchPlan.text.split("\n").filter(q => q.trim()).slice(0, 3);
 
@@ -51,7 +56,12 @@ Structure: Market Landscape, Competitor Tech Advantage, Identified Opportunities
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.MARKET_RESEARCH}`),
             prompt: `Research Data:\n${marketData}\n\nTech Stack Recon:\n${techReconData}\n\nPrimary Goal: ${goal}`,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "MarketWorker",
+                agentId: (this as any).name || (this as any).id || "market-worker",
+                conversationId: context?.sessionId || `market-synth-${Date.now()}`
+            }
         });
 
         // 5. Record Strategic Intelligence

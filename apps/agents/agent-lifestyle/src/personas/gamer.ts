@@ -26,7 +26,12 @@ You are a HIGH-LEVEL PLAYER who understands the nuances of competitive and casua
 Style: Informative, passionate, and data-driven.
 Current Meta/Patch Context: ${buildContext}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "GamerWorker",
+                agentId: (this as any).name || (this as any).id || "gamer-worker",
+                conversationId: context?.sessionId || `gamer-${Date.now()}`
+            }
         });
         return result.text;
     }

@@ -26,7 +26,12 @@ You are visionary, authoritative, and focused on the big picture.
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.MARKET_RESEARCH}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "CEOWorker",
+                agentId: (this as any).name || (this as any).id || "ceo-worker",
+                conversationId: context?.sessionId || `ceo-${Date.now()}`
+            }
         });
         return result.text;
     }

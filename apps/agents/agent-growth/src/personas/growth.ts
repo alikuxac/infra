@@ -17,7 +17,12 @@ Style: Aggressive, data-oriented, and creative.
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.ARTICLE_WRITING}`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "GrowthWorker",
+                agentId: (this as any).name || (this as any).id || "growth-worker",
+                conversationId: context?.sessionId || `growth-${Date.now()}`
+            }
         });
         return result.text;
     }

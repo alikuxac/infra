@@ -14,7 +14,12 @@ export class ResearcherWorker extends Agent<Env> {
         const result = await generateWithFallback(this.env, {
             system: buildSystemPrompt("You are the Deep Research Specialist for alikuxac. Break down goals into precise search queries."),
             prompt: `Break down this research goal into 3 search queries:\n"${goal}"\nQueries ONLY, one per line.`,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "ResearcherWorker",
+                agentId: (this as any).name || (this as any).id || "researcher-worker",
+                conversationId: context?.sessionId || `researcher-${Date.now()}`
+            }
         });
         const queryRaw = result.text;
         const queries = queryRaw.split("\n").filter(q => q.trim()).slice(0, 3);
@@ -37,7 +42,12 @@ export class ResearcherWorker extends Agent<Env> {
 ### PLAYBOOK
 ${SKILL_PLAYBOOKS.MARKET_RESEARCH}`),
             prompt: `Data:\n${allContext}\n\nTask: ${goal}`,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "ResearcherWorker",
+                agentId: (this as any).name || (this as any).id || "researcher-worker",
+                conversationId: context?.sessionId || `researcher-synth-${Date.now()}`
+            }
         });
         const report = resultReport.text;
 

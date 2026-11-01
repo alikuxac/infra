@@ -22,7 +22,12 @@ export class TravelWorker extends Agent<Env> {
             system: buildSystemPrompt(`You are the Travel Specialist for 'Alikuxac' (Lifestyle Dept). 
 Domain: Destination scouting, itinerary optimization, and travel hacks.`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "TravelWorker",
+                agentId: (this as any).name || (this as any).id || "travel-worker",
+                conversationId: context?.sessionId || `travel-${Date.now()}`
+            }
         });
         return result.text;
     }

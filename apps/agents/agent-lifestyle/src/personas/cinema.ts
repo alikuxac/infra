@@ -13,7 +13,12 @@ export class CinemaWorker extends Agent<Env> {
             system: buildSystemPrompt(`You are the Cinema Specialist for 'Alikuxac' (Lifestyle Dept). 
 Domain: Film analysis, cinematography, and box office trends.`),
             prompt: goal,
-            contextModel: context?.model
+            contextModel: context?.model,
+            telemetry: {
+                agentName: "CinemaWorker",
+                agentId: (this as any).name || (this as any).id || "cinema-worker",
+                conversationId: context?.sessionId || `cinema-${Date.now()}`
+            }
         });
         return result.text;
     }
