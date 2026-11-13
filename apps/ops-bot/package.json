@@ -15,7 +15,7 @@
         "@alikuxac/shared-types": "workspace:*",
         "discord-interactions": "4.4.0",
         "grammy": "1.46.0",
-        "hono": "4.13.14",
+        "hono": "4.13.16",
         "zod": "4.6.7"
     },
     "devDependencies": {
